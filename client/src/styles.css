@@ -1,0 +1,93 @@
+
+.window {
+  min-height: 100vh;
+}
+
+#newpostarea{  
+  /* box-sizing: padding-box; */
+  height: 6rem;
+}
+
+.pt15 {
+	padding-top: 15px!important
+}
+
+.post {
+  width: 400px;
+}
+
+#form1 {
+  margin-left: 00px;
+  height: 10px;
+}
+
+.word-break {
+  word-break: break-all;
+}
+
+.search-s {
+  height: 43px !important;
+}
+
+.search-m {
+  height: 50px !important;
+}
+
+
+#form2 {
+  min-height: 30;
+  margin-left: 00px;
+}
+
+.side-nav li a {
+  text-decoration: none;
+}
+#searchResults2 {
+  background-color: rgb(172, 172, 172);
+}
+#searchResults {
+  background-color: rgb(172, 172, 172);
+}
+.right li a {
+  padding-right: 2em;
+  text-decoration: none;
+}
+
+nav .left {
+  top: 0px;
+}
+.nav-wrapper .input-field {
+  padding-top: 7px;
+}
+
+.nav-wrapper form #search {
+  height: 50px;
+}
+
+nav .right {
+  position: absolute;
+  width: 40%;
+  top: 0;
+  right: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+
+
+
+
+
+.fidget{
+  height:140px;
+  width: 140px;
+  background: url('https://discuss-assets.s3.amazonaws.com/original/3X/0/3/03ad072969fc47ab98c776a60afc76d61e4877e8.svg') no-repeat;
+  background-position: 22px 30px;
+  background-size: 96px 96px;
+  animation: spin 60s cubic-bezier(.30,.60,.60,1);
+  
+}
+
+@keyframes spin { 100% { transform: rotate(180000deg) }};
