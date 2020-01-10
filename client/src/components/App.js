@@ -6,6 +6,7 @@ import About from "./About";
 import Home from "./Home";
 import Login from "./Login";
 import Profile from "./Profile";
+import Game from "./Game";
 import {UserProvider} from "./UserContext";
 
 import "../styles.css";
@@ -24,6 +25,7 @@ function App() {
               <Route path="/about" component={About} />
               <Route path='/myprofile' component={ Profile } />
               <Route path='/login' component={ Login } />
+              <Route path='/game' component={ Game } />
             </Switch>
           </div>
         </div>
