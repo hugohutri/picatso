@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import axios from "../js/axios.js";
 import "../styles.css";
 
-// Basic Game component
-class Game extends Component {
+// Basic Test component
+class Test extends Component {
     constructor(props) {
         super(props);
         this.player = {username: '', lobby: ''};
@@ -70,7 +70,7 @@ class Game extends Component {
 
     render() {
         return (
-            <div className="Game">
+            <div className="Test">
                 <div className="row">
                     <div className="col card s10 offset-s1 center-align">
                         {!this.state.loading && this.state.lobbies.lobbies.map((lobby, index) =>
@@ -93,7 +93,7 @@ class Game extends Component {
 
                     <div className="row">
                         <div className="col card s10 offset-s1 m6 offset-m3 center-align">
-                            <h6>Join the game</h6>
+                            <h6>Join the Test</h6>
                             <div className="row">
                                 <form className="col s12" onChange={this.handleUserText}>
                                     <div className="row">
@@ -128,4 +128,4 @@ class Game extends Component {
     }
 }
 
-export default Game;
+export default Test;

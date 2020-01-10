@@ -3,6 +3,17 @@
   min-height: 100vh;
 }
 
+.app {
+  margin: 0px;
+  height: 100%;
+  top: 0px;
+  min-height: 100%;
+}
+
+html, body, .app {
+  height: 100%;
+}
+
 #newpostarea{  
   /* box-sizing: padding-box; */
   height: 6rem;
