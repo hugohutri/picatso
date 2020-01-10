@@ -1,7 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import Game from "./Game";
+import Test from "./Test";
+import Mobile from "./Mobile";
+import Screen from "./Screen";
 import {GameProvider} from "./GameContext";
 
 import "../styles.css";
@@ -13,12 +15,11 @@ function App() {
     <GameProvider>
       <Router>
         <div className="app">
-          <div className="window container blue lighten-4">
             <Switch>
-              <Route path="/" exact component={Game} />
-              <Route path="/lobby" component={Game} />
+              <Route path="/" exact component={Mobile} />
+              <Route path="/lobby" component={Screen} />
+              <Route path="/test" component={Test} />
             </Switch>
-          </div>
         </div>
       </Router>
     </GameProvider>
