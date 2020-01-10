@@ -29,20 +29,18 @@ function joinLobby(id, username) {
   for (var i = 0,len = lobbies.length; i < len; i++) {
       if (lobbies[i].id === id) {
           if(lobbies[i].players.length > 10)
-            return 0;
+            return 0; // The lobby is full
           lobbies[i].players.push(username);
           return 1;
       }
   }
+  // The lobby does not exist
   return -1;
 }
 
 // Create a new lobby
 function createLobby() {
-  let gameid;
-  do {
-    gameid = 1313; //Math.floor(Math.random()*9999);
-  } while(findLobby(gameid) !== 1);
+  let gameid = Math.floor(Math.random()*9999).toString;
 
   const lobby = {
     id: gameid,
@@ -61,17 +59,6 @@ router.get('/', function(req, res, next) {
   res.json(lobbies);
 });
 
-// Request to find the lobby
-router.post( "/find/", ( req, res, next ) => {
-  const gameid = req.body.gameid;
-  
-  // Lobby status:
-  // success: 1
-  // full: 0
-  // not found: -1
-  let lobbyStatus = findLobby(gameid);
-  res.status( 200 ).json({ lobbyStatus });
-});
 
 // Request to join to the lobby
 router.post( "/join/", ( req, res, next ) => {
