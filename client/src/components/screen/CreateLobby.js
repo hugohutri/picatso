@@ -5,7 +5,7 @@ class CreateLobby extends Component {
     render() { 
         return ( 
             <div>
-                UUSI LOBBY
+                UUSI LOBBY ON AINA PARAS KAVERIEN KANSSA!
             </div>
          );
     }
