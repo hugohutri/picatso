@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-import CreateLobby from "./screen/CreateLobby"
+import Lobby from "./screen/Lobby"
 
 // Everyting rendered in the main screen or tv, will be here
 class Screen extends Component {
@@ -8,7 +8,7 @@ class Screen extends Component {
     render() { 
         return ( 
             <div>
-                <CreateLobby/>
+                <Lobby/>
             </div>
          );
     }
