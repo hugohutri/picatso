@@ -40,7 +40,7 @@ function joinLobby(id, username) {
 
 // Create a new lobby
 function createLobby() {
-  let gameid = Math.floor(Math.random()*9999).toString;
+  let gameid = Math.floor(Math.random()*9999).toString();
 
   const lobby = {
     id: gameid,
