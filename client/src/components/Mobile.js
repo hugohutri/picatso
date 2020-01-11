@@ -2,6 +2,9 @@ import React, { Component } from "react";
 
 import Nav from "./Nav";
 import MainMenu from "./mobile/MainMenu";
+import Waiting from "./mobile/Waiting";
+import RoundInProgress from "./mobile/RoundInProgress";
+import Answering from "./mobile/Answering";
 import Background from "../images/background1.png";
 import sound from "./bensound-funnysong.mp3";
 
@@ -25,7 +28,17 @@ class Mobile extends Component {
         <div style={backgroundStyle}>
           <div className="window container">
             <MainMenu />
-            <audio ref="audio_tag" src={sound} controls autoPlay />
+            <audio
+              id="myaudio"
+              ref="audio_tag"
+              src={sound}
+              autoPlay
+              loop
+              muted
+            />
+            <Waiting />
+            <RoundInProgress />
+            <Answering />
           </div>
         </div>
       </div>
