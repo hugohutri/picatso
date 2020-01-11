@@ -94,8 +94,8 @@ class Round extends Component {
             return (
                 <div>
                     <div>
-                        <Announcement text="Vote for the best answer!"/>
-                        <Timer seconds="5" timerStopped={this.timerStopped}/>
+                        <Announcement text="Time to vote for the best answer!"/>
+                        <Timer seconds="3" timerStopped={this.timerStopped}/>
                     </div>
                 </div>
             );

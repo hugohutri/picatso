@@ -17,11 +17,15 @@ class Screen extends Component {
       backgroundImage: "url(" + Background + ")",
       zIndex: "-1000"
     };
+    const audioStyle = {
+        volume: "0.01",
+    };
+
     return (
       <div className="screen">
         <div style={backgroundStyle}>
           <Lobby />
-          <audio ref="audio_tag" src={sound} controls autoPlay />
+          <audio volume="0.01" ref="audio_tag" style={audioStyle} src={sound} autoPlay />
         </div>
       </div>
     );
