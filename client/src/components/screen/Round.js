@@ -2,7 +2,9 @@ import React, {Component} from "react";
 import '../../styles.css';
 
 import Question from "./Question"
+import axios from "../../js/axios"
 import Timer from "./Timer"
+import Announcement from "./Announcement"
 import {GameContext} from "../GameContext"
 
 class Round extends Component {
@@ -13,38 +15,50 @@ class Round extends Component {
         this.timers = [3, 4, 4];
         this.state = {round: 0};
         this.timerStopped = this.timerStopped.bind(this);
-        this.content = [
+        /*
+        [
             {
                 guide: "Fill in the plank",
                 question: "It's over anakin I have the ___________! ",
-                url: "www.flickr.com/photos/44214515@N06/22155578112",
+                url: "",//www.flickr.com/photos/44214515@N06/22155578112",
                 timer: "3"
             },
             {
-                guide: "Give a title to this image",
-                question: "",
-                url: "https://fi.wikipedia.org/wiki/Tiedosto:Life_of_George_Washington,_Deathbed.jpg",
+                guide: "Fill in the plank",
+                question: "People say I have small hands, but I make up for it with my ______.",
+                url: "",//https://fi.wikipedia.org/wiki/Tiedosto:Life_of_George_Washington,_Deathbed.jpg",
                 timer: "3"
             },
             {
-                guide: "Answer the question",
+                guide: "Answer something funny",
                 question: "If Finland had area 51, what would be its biggest secret?",
-                url: "https://pixabay.com/fi/photos/mies-secret-kasvot-salaper%C3%A4inen-4393964/",
+                url: "",//https://pixabay.com/fi/photos/mies-secret-kasvot-salaper%C3%A4inen-4393964/",
                 timer: "3"
             }
-        ];
+        ];*/
     }
+
+    state = {
+        content: [],
+    }
+
     static contextType = GameContext;
 
     timerStopped() {
         console.log(this.state.round);
-        if(this.state.round < 3) {
-            this.setState({ round: this.state.round+1 });
-        }
-        return;
+        this.setState({ round: this.state.round+1 });
+    }
+
+    async componentDidMount() {
+        console.log(":DDDDDDDDDD");
+        const { data } = await axios.get( "/lobby/content" );
+        console.log(data);
+        this.setState({content: data.content});
     }
 
     render() { 
+        const round = this.state.round;
+
         const guideStyle = {
             fontSize: "3vmin",
             fontFamily: "Bangers",
@@ -55,13 +69,14 @@ class Round extends Component {
             fontFamily: "Bangers",
             textShadow: "4px 4px 8px black"
         }
-        console.log("Render kutsuttiin!");
-        if(this.state.round < 3) {
-            const round     = this.state.round;
-            const guide     = this.content[round].guide;
-            const question  = this.content[round].question;
-            const url       = this.content[round].url;
-            const timer     = this.content[round].timer;
+
+        // Render questions
+        if(round < 3 && this.state.content) {
+            const content = this.state.content;
+            const guide     = content[round].guide;
+            const question  = content[round].question;
+            const url       = content[round].url;
+            const timer     = content[round].timer;
             return ( 
                 <div>
                     {round < 3 && (
@@ -73,8 +88,23 @@ class Round extends Component {
                 </div>
             );
         }
+
+        // Render announcement
+        if(round === 3) {
+            return (
+                <div>
+                    <div>
+                        <Announcement text="Vote for the best answer!"/>
+                        <Timer seconds="5" timerStopped={this.timerStopped}/>
+                    </div>
+                </div>
+            );
+        }
+
+        // 
         return (
-            <div></div>
+            <div>
+            </div>
         );
     }
 }

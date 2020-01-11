@@ -12,6 +12,27 @@ const lobbies = [
   }
 ];
 
+const content = [
+  {
+      guide: "Fill in the plank",
+      question: "It's over anakin I have the ___________! ",
+      url: "",//www.flickr.com/photos/44214515@N06/22155578112",
+      timer: "3"
+  },
+  {
+      guide: "Fill in the plank",
+      question: "People say I have small hands, but I make up for it with my ______.",
+      url: "",//https://fi.wikipedia.org/wiki/Tiedosto:Life_of_George_Washington,_Deathbed.jpg",
+      timer: "3"
+  },
+  {
+      guide: "Answer something funny",
+      question: "If Finland had area 51, what would be its biggest secret?",
+      url: "",//https://pixabay.com/fi/photos/mies-secret-kasvot-salaper%C3%A4inen-4393964/",
+      timer: "3"
+  }
+];
+
 // Find if the lobby exists
 function findLobby(id) {
   for (var i = 0,len = lobbies.length; i < len; i++) {
@@ -78,6 +99,12 @@ router.get( "/create/", ( req, res, next ) => {
   let gameid = createLobby();
   //res.status( 200 ).json({id: "1234"});
   res.status( 200 ).json({id: gameid});
+});
+
+// Request to the questions
+router.get( "/content/", ( req, res, next ) => {
+  //res.status( 200 ).json({id: "1234"});
+  res.status( 200 ).json({content});
 });
 
 module.exports = router;

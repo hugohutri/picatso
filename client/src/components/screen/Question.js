@@ -12,7 +12,7 @@ class Question extends Component {
             textShadow: "4px 4px 8px black"
         }
         const questionStyle = {
-            fontSize: "4vmin",
+            fontSize: "6vmin",
             fontFamily: "Bangers",
             textShadow: "4px 4px 8px black"
         }
@@ -22,13 +22,15 @@ class Question extends Component {
                     <div className="center-align white-text flow-text" style={guideStyle}>
                         {this.props.guide}
                     </div>
-                    <div className="container center-align pt15">
-                        <img
-                        className="responsive-img"
-                        src={this.props.url}
-                        alt="Game picture"
-                        />
-                    </div>
+                    {this.props.url!=="" &&
+                        <div className="container center-align pt15">
+                            <img
+                            className="responsive-img"
+                            src={this.props.url}
+                            alt="Game picture"
+                            />
+                        </div>
+                    }
                     <div className="center-align white-text flow-text" style={questionStyle}>
                         {this.props.question}
                     </div>
