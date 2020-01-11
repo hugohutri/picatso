@@ -46,7 +46,7 @@ class LobbyTutorial extends Component {
                         </div>
 
                     </div>
-                    <Timer seconds="5" timerStopped={this.timerStopped}/>
+                    <Timer seconds="3" timerStopped={this.timerStopped}/>
                 </div>
             </div>
          );
