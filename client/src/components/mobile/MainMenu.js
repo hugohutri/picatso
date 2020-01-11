@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Background from "../images/background1.png";
 
 // Mobile view
 class Mobiili extends Component {

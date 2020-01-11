@@ -7,7 +7,7 @@ function Nav() {
   return (
     <div className="navbar-fixed">
       <nav>
-        <div className="nav-wrapper blue lighten-2">
+        <div className="nav-wrapper deep-orange darken-1">
           <div className="nav-wrapper container">
             <div className="center">
                 PICATSO
