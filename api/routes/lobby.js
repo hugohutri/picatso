@@ -76,7 +76,8 @@ router.post( "/join/", ( req, res, next ) => {
 router.get( "/create/", ( req, res, next ) => {
   
   let gameid = createLobby();
-  res.status( 200 ).json(gameid);
+  //res.status( 200 ).json({id: "1234"});
+  res.status( 200 ).json({id: gameid});
 });
 
 module.exports = router;
