@@ -25,7 +25,14 @@ class Mobile extends Component {
         <div style={backgroundStyle}>
           <div className="window container">
             <MainMenu />
-            <audio ref="audio_tag" src={sound} controls autoPlay />
+            <audio
+              id="myaudio"
+              ref="audio_tag"
+              src={sound}
+              autoPlay
+              loop
+              muted
+            />
           </div>
         </div>
       </div>
