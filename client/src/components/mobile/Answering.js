@@ -3,6 +3,11 @@ import "../../styles.css";
 
 //Odotusruutu
 class Answering extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { goToNextPage: false };
+    this.info = { answer: "" };
+  }
   render() {
     const headerStyle = {
       fontSize: "4vmin",

@@ -31,10 +31,10 @@ class Mobile extends Component {
           <div style={backgroundStyle}>
             <div className="window container">
               <Switch>
-                <Route path="/" exact           component={ MainMenu } />
-                <Route path="/wait"             component={ Waiting } />
-                <Route path='/round'            component={ RoundInProgress } />
-                <Route path='/answer'           component={ Answering } />
+                <Route path="/" exact component={MainMenu} />
+                <Route path="/wait" component={Waiting} />
+                <Route path="/round" component={RoundInProgress} />
+                <Route path="/answer" component={Answering} />
               </Switch>
               <audio
                 id="myaudio"
