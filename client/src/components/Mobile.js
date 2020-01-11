@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Nav from "./Nav";
 import MainMenu from "./mobile/MainMenu";
@@ -22,25 +23,30 @@ class Mobile extends Component {
       backgroundImage: "url(" + Background + ")",
       zIndex: "-1000"
     };
+
     return (
       <div>
         <Nav />
-        <div style={backgroundStyle}>
-          <div className="window container">
-            <MainMenu />
-            <audio
-              id="myaudio"
-              ref="audio_tag"
-              src={sound}
-              autoPlay
-              loop
-              muted
-            />
-            <Waiting />
-            <RoundInProgress />
-            <Answering />
+        <Router>
+          <div style={backgroundStyle}>
+            <div className="window container">
+              <Switch>
+                <Route path="/" exact           component={ MainMenu } />
+                <Route path="/wait"             component={ Waiting } />
+                <Route path='/round'            component={ RoundInProgress } />
+                <Route path='/answer'           component={ Answering } />
+              </Switch>
+              <audio
+                id="myaudio"
+                ref="audio_tag"
+                src={sound}
+                autoPlay
+                loop
+                muted
+              />
+            </div>
           </div>
-        </div>
+        </Router>
       </div>
     );
   }

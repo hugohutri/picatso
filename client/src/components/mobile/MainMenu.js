@@ -1,9 +1,22 @@
 import React, { Component } from "react";
+import {Redirect} from "react-router-dom";
 import "../../styles.css";
 
 // Mobile view
 class MainMenu extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = { goToNextPage: false };
+  }
+
+
+  handleSubmit() {
+    this.setState({ goToNextPage: true});
+  }
+
   render() {
+    if(this.state.goToNextPage) return <Redirect to='/wait' />
     const headerStyle = {
       fontSize: "6vmin",
       fontFamily: "Bangers"
