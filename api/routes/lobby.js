@@ -4,7 +4,7 @@ var router = express.Router();
 const lobbies = [
   {
     id: "1234",
-    players: ["pekka","nalle"]
+    players: ["nalle","liisa","runtu"]
   },
   {
     id: "2554",
@@ -36,13 +36,11 @@ const content = [
 // Find if the lobby exists
 function findLobby(id) {
   for (var i = 0,len = lobbies.length; i < len; i++) {
-      if (lobbies[i].id === id) {
-          if(lobbies[i].players.length > 10)
-            return 0;
-          return 1;
+      if (lobbies[i].id == id) {
+          return lobbies[i].players;
       }
   }
-  return -1;
+  return null;
 }
 
 // Join to the lobby
@@ -99,6 +97,16 @@ router.get( "/create/", ( req, res, next ) => {
   let gameid = createLobby();
   //res.status( 200 ).json({id: "1234"});
   res.status( 200 ).json({id: gameid});
+});
+
+// Request to get players of the lobby
+router.post( "/players/", ( req, res, next ) => {
+  const info = req.body.info;
+  let players = findLobby(info.gameid.toString());
+  if(players === null) {
+    players = "error";
+  }
+  res.status( 200 ).json({players: players});
 });
 
 // Request to the questions

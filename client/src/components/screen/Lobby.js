@@ -11,28 +11,44 @@ class Lobby extends Component {
     constructor(props) {
         super(props);
         this.updateLobbyState = this.updateLobbyState.bind(this);
+        this.createLobby = this.createLobby.bind(this);
         this.state = {
             mode: "asd",
+            gameid: ""
         }
     }
 
     static contextType = GameContext;
 
+    componentDidMount() {
+        this.createLobby();
+        const [lobby] = this.context;
+        const mode = lobby[0].mode;
+        this.setState(() => ({mode: mode}))
+    }
+    
+    // Create new lobby
+    async createLobby() {
+        /* Uncomment this to create lobbies!!!
+        const { data } = await axios.get( "/lobby/create");
+        if(data === null) return;
+        const [,setLobby] = this.context;
+        setLobby([{gameid: data.id}]);
+        */
+        const [,setLobby] = this.context;
+        setLobby([{gameid: 1234}]);
+        this.setState(() => ({
+            gameid: 1234
+        }))
+    };
+
     updateLobbyState(newmode) {
         const [lobby] = this.context;
         const mode = lobby[0].mode;
-        console.log("Mode on: "+ mode)
         this.setState(() => ({
             mode: newmode
         }))
         this.forceUpdate();
-    }
-
-    componentDidMount() {
-        const [lobby] = this.context;
-        const mode = lobby[0].mode;
-        this.setState(() => ({mode: mode}))
-        console.log(this.state.mode);
     }
 
     render() { 
@@ -40,18 +56,19 @@ class Lobby extends Component {
             fontSize: "14vmin",
             fontFamily: 'Bangers',
         }
-        console.log("MODE: "+ this.state.mode);
+        const [lobby] = this.context;
+        const gameid = lobby[0].gameid;
         return ( 
             <div className="lobby">
                 <div className="row">
                     <div className="center-align flow-text" style={headerStyle}>
                         PICATSO
                     </div>
-                    {this.state.mode === "waiting" && <LobbyWaiting updateLobbyState={this.updateLobbyState}/>}
+                    {this.state.mode === "waiting" && <LobbyWaiting gameid={gameid} updateLobbyState={this.updateLobbyState}/>}
                     {this.state.mode === "tutorial" && <LobbyTutorial updateLobbyState={this.updateLobbyState}/>}
                     {this.state.mode === "round" && <Round updateLobbyState={this.updateLobbyState}/>}
                 </div>
-                <PlayerList/>
+                {gameid && <PlayerList gameid={gameid}/>}
             </div>
          );
     }

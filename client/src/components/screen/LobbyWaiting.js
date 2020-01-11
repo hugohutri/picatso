@@ -10,20 +10,6 @@ class LobbyWaiting extends Component {
         this.onClickStart = this.onClickStart.bind(this);
     }
 
-    static contextType = GameContext;
-
-    async componentDidMount() {
-        this.createLobby();
-    }
-    
-    // Create new lobby
-    async createLobby() {
-        const { data } = await axios.get( "/lobby/create");
-        if(data === null) return;
-        const [,setLobby] = this.context;
-        setLobby([{gameid: data.id}]);
-    };
-
     onClickStart() {
         console.log("onClickStart called");
         const [,setLobby] = this.context;
@@ -51,8 +37,7 @@ class LobbyWaiting extends Component {
             fontSize: "12vmin",
             textShadow: "4px 4px 8px black"
         };
-        const [lobby] = this.context;
-        const gameid = lobby[0].gameid;
+        const gameid = this.props.gameid;
         return ( 
             <div>
                 <div>

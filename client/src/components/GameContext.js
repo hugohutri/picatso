@@ -9,7 +9,8 @@ export const GameProvider = props => {
         {
             gameid: '',
             mode: 'waiting',
-            players: [{
+            players: [],
+            /*players: [{
                 username: "gamer123",
                 points: "1234" 
               },
@@ -40,7 +41,7 @@ export const GameProvider = props => {
               {
                 username: "anomyymi",
                 points: "1234"
-              }]
+              }] */
         }
     ]);
 
