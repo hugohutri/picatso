@@ -7,13 +7,13 @@ import {GameContext} from "../GameContext"
 class LobbyTutorial extends Component {
     constructor(props) {
         super(props);
-        this.startRound = this.startRound.bind(this);
+        this.timerStopped = this.timerStopped.bind(this);
     }
 
     static contextType = GameContext;
 
-    startRound() {
-        console.log("startRound called");
+    timerStopped() {
+        console.log("timerStopped called");
         const [,setLobby] = this.context;
         setLobby([{mode: "round"}]);
         this.props.updateLobbyState("round");
@@ -25,6 +25,10 @@ class LobbyTutorial extends Component {
             fontFamily: "Bangers",
             textShadow: "4px 4px 8px black"
         }
+        const logoStyle = { 
+            fontSize: "25vmin",
+            textShadow: "4px 4px 8px black"
+        };
         return ( 
             <div>
                 <div>
@@ -32,8 +36,17 @@ class LobbyTutorial extends Component {
                         <div className="center-align white-text flow-text" style={guideStyle}>
                             This is tutorial. User your phone to answer blaa blaa blaa...
                         </div>
+                        <div className="center-align">
+                            <i
+                                className="material-icons white-text hide-on-small-and-down"
+                                style={logoStyle}
+                            >
+                                phone_android
+                            </i>
+                        </div>
+
                     </div>
-                    <Timer seconds="5" startRound={this.startRound}/>
+                    <Timer seconds="5" timerStopped={this.timerStopped}/>
                 </div>
             </div>
          );

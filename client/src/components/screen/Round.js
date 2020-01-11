@@ -7,6 +7,10 @@ import {GameContext} from "../GameContext"
 class Round extends Component {
     static contextType = GameContext;
 
+    timerStopped() {
+        // Round is over
+    }
+
     render() { 
         const guideStyle = {
             fontSize: "3vmin",
@@ -29,7 +33,7 @@ class Round extends Component {
                             "It's over Anaking, I have the _____"
                         </div>
                     </div>
-                    <Timer seconds="30"/>
+                    <Timer seconds="10" timerStopped={this.timerStopped}/>
                 </div>
             </div>
          );

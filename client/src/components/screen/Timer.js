@@ -49,7 +49,7 @@ class Timer extends Component {
         // Check if we're at zero.
         if (seconds === 0) { 
             clearInterval(this.timer);
-            this.props.startRound();
+            this.props.timerStopped();
         }
     }
     
