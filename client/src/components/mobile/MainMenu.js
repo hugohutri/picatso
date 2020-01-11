@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../../styles.css";
 
 // Mobile view
-class Mobiili extends Component {
+class MainMenu extends Component {
   render() {
     const headerStyle = {
       fontSize: "6vmin",
@@ -57,4 +57,4 @@ class Mobiili extends Component {
   }
 }
 
-export default Mobiili;
+export default MainMenu;
