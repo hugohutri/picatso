@@ -4,29 +4,35 @@ import axios from "../../js/axios.js"
 
 import PlayerList from "./PlayerList"
 import {GameContext} from "../GameContext"
+import LobbyWaiting from "./LobbyWaiting";
+import LobbyTutorial from "./LobbyTutorial"
 
 class Lobby extends Component {
     constructor(props) {
         super(props);
-        this.onClickStart = this.onClickStart.bind(this);
+        this.updateLobbyState = this.updateLobbyState.bind(this);
+        this.state = {
+            mode: "asd",
+        }
     }
 
     static contextType = GameContext;
 
-    async componentDidMount() {
-        this.createLobby();
+    updateLobbyState(newmode) {
+        const [lobby] = this.context;
+        const mode = lobby[0].mode;
+        console.log("Mode on: "+ mode)
+        this.setState(() => ({
+            mode: newmode
+        }))
+        this.forceUpdate();
     }
-    
-    // Create new lobby
-    async createLobby() {
-        const { data } = await axios.get( "/lobby/create");
-        if(data === null) return;
-        const [,setLobby] = this.context;
-        setLobby([{gameid: data.id}]);
-    };
 
-    onClickStart() {
-        console.log("onClickStart called");
+    componentDidMount() {
+        const [lobby] = this.context;
+        const mode = lobby[0].mode;
+        this.setState(() => ({mode: mode}))
+        console.log(this.state.mode);
     }
 
     render() { 
@@ -34,59 +40,15 @@ class Lobby extends Component {
             fontSize: "14vmin",
             fontFamily: 'Bangers',
         }
-        const idStyle = {
-            fontSize: "12vmin",
-            fontFamily: "Bangers",
-            textShadow: "4px 4px 8px black"
-        }
-        const guideStyle = {
-            fontSize: "4vmin",
-            fontFamily: "Bangers",
-            textShadow: "4px 4px 8px black"
-        }
-        const buttonStyle = {
-            fontSize: "60px",
-            fontFamily: "Bangers",
-            textShadow: "4px 4px 8px black"
-        }
-        const buttonHoveredStyle = {
-            fontSize: "60px",
-            fontFamily: "Bangers",
-            textShadow: "8px 8px 16px black"
-        }
-        const logoStyle = { 
-            fontSize: "12vmin",
-            textShadow: "4px 4px 8px black"
-        };
-        const [lobby] = this.context;
-        const gameid = lobby[0].gameid;
+        console.log("MODE: "+ this.state.mode);
         return ( 
             <div>
                 <div className="row">
                     <div className="center-align flow-text" style={headerStyle}>
                         PICATSO
                     </div>
-                    <div className="col s6 offset-s3">
-                        <div className="center-align white-text flow-text" style={guideStyle}>
-                            Go to picatso.fi <br/> on your mobile device to join in <br/> using room code
-                        </div>
-                        <div className="center-align white-text flow-text" style={idStyle}>
-                            {gameid || "loading..."}
-                        </div>
-                    </div>
-                    <div className="col s3">
-                        <i
-                            className="material-icons white-text hide-on-small-and-down"
-                            style={logoStyle}
-                        >
-                            phone_android
-                        </i>
-                    </div>
-                </div>
-                <div className="container section center-align">
-                    <div className="col s12">
-                        <div className="btn-large white-text center black center" style={buttonStyle} onClick={this.onClickStart}>Play</div>
-                    </div>
+                    {this.state.mode === "waiting" && <LobbyWaiting updateLobbyState={this.updateLobbyState}/>}
+                    {this.state.mode === "tutorial" && <LobbyTutorial/>}
                 </div>
                 <PlayerList/>
             </div>

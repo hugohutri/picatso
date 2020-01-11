@@ -8,6 +8,7 @@ export const GameProvider = props => {
     const [lobby, setLobby] = useState([
         {
             gameid: '',
+            mode: 'waiting',
             players: [{
                 username: "gamer123",
                 points: "1234" 
