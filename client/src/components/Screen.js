@@ -17,12 +17,6 @@ class Screen extends Component {
             backgroundImage: "url(" + Background + ")",
             zIndex:"-1000",
         };
-        const bgStyle = {
-           
-        }
-        const floatingStyle = {
-            position: "",
-        };
         return ( 
             <div className="window">
                 <div style={backgroundStyle}>

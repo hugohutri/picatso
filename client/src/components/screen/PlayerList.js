@@ -3,13 +3,13 @@ import React, {Component} from "react";
 class PlayerList extends Component {
     render() { 
         const playerStyle = {
-            fontSize: "30px",
+            fontSize: "4vmin",
             fontFamily: "Bangers",
-            textShadow: "1px 1px 2px black"
+            textShadow: "1vmin 1vmin 2vmin black"
         }
         const players = [
             {
-              username: "labyr",
+              username: "labyri",
               points: "1234" 
             },
             {
@@ -29,7 +29,7 @@ class PlayerList extends Component {
               points: "1234" 
             },
             {
-              username: "lut",
+              username: "nöhö",
               points: "1234" 
             },
             {
@@ -37,17 +37,19 @@ class PlayerList extends Component {
               points: "1234" 
             },
             {
-              username: "sippo",
+              username: "anomyymi",
               points: "1234"
             }
           ];
         return ( 
-            <div className="row">
+            <div className="container row center-align">
+              <div className="col s12 l10 offset-l1 card">
                 {players.map((player) => 
-                    <div className="col s3">
+                  <div className="col s4 m3 l3" key={player.username}>
                     <div className="black-text center" style={playerStyle}>{player.username}</div>
-                    </div>
+                  </div>
                 )}
+              </div>
             </div>
          );
     }
