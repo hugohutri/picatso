@@ -22,6 +22,13 @@ class Question extends Component {
                     <div className="center-align white-text flow-text" style={guideStyle}>
                         {this.props.guide}
                     </div>
+                    <div className="container center-align pt15">
+                        <img
+                        className="responsive-img"
+                        src={this.props.url}
+                        alt="Game picture"
+                        />
+                    </div>
                     <div className="center-align white-text flow-text" style={questionStyle}>
                         {this.props.question}
                     </div>

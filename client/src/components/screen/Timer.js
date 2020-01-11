@@ -48,8 +48,14 @@ class Timer extends Component {
         
         // Check if we're at zero.
         if (seconds === 0) { 
-            clearInterval(this.timer);
+            //clearInterval(this.timer);
             this.props.timerStopped();
+
+            let timeLeftVar = this.secondsToTime(this.props.seconds);
+            this.setState({ 
+                time: timeLeftVar,
+                seconds: this.props.seconds});
+            this.startTimer();
         }
     }
     
