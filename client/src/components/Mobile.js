@@ -2,6 +2,9 @@ import React, { Component } from "react";
 
 import Nav from "./Nav";
 import MainMenu from "./mobile/MainMenu";
+import Waiting from "./mobile/Waiting";
+import RoundInProgress from "./mobile/RoundInProgress";
+import Answering from "./mobile/Answering";
 import Background from "../images/background1.png";
 import sound from "./bensound-funnysong.mp3";
 
@@ -33,6 +36,9 @@ class Mobile extends Component {
               loop
               muted
             />
+            <Waiting />
+            <RoundInProgress />
+            <Answering />
           </div>
         </div>
       </div>
