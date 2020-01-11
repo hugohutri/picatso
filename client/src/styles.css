@@ -1,4 +1,3 @@
-
 .window {
   min-height: 100vh;
 }
@@ -14,17 +13,19 @@
   min-height: 100%;
 }
 
-html, body, .app {
+html,
+body,
+.app {
   height: 100%;
 }
 
-#newpostarea{  
+#newpostarea {
   /* box-sizing: padding-box; */
   height: 6rem;
 }
 
 .pt15 {
-	padding-top: 15px!important
+  padding-top: 15px !important;
 }
 
 .post {
@@ -47,7 +48,6 @@ html, body, .app {
 .search-m {
   height: 50px !important;
 }
-
 
 #form2 {
   min-height: 30;
@@ -90,19 +90,51 @@ nav .right {
   display: none;
 }
 
-
-
-
-
-
-.fidget{
-  height:140px;
+.fidget {
+  height: 140px;
   width: 140px;
-  background: url('https://discuss-assets.s3.amazonaws.com/original/3X/0/3/03ad072969fc47ab98c776a60afc76d61e4877e8.svg') no-repeat;
+  background: url("https://discuss-assets.s3.amazonaws.com/original/3X/0/3/03ad072969fc47ab98c776a60afc76d61e4877e8.svg")
+    no-repeat;
   background-position: 22px 30px;
   background-size: 96px 96px;
-  animation: spin 60s cubic-bezier(.30,.60,.60,1);
-  
+  animation: spin 60s cubic-bezier(0.3, 0.6, 0.6, 1);
 }
 
-@keyframes spin { 100% { transform: rotate(180000deg) }};
+@keyframes spin {
+  100% {
+    transform: rotate(180000deg);
+  }
+}
+
+/* VILLEN SETIT :DDDD */
+/*********************************************************************
+**********************************************************************/
+/* label color */
+.input-field label {
+  color: rgb(0, 0, 0) !important;
+}
+/* label focus color */
+.input-field input[type="text"]:focus + label {
+  color: rgb(255, 100, 0) !important;
+}
+/* label underline focus color */
+.input-field input[type="text"]:focus {
+  border-bottom: 1px solid rgb(255, 100, 0) !important;
+  box-shadow: 0 1px 0 0 rgb(255, 100, 0) !important;
+}
+/* valid color */
+.input-field input[type="text"].valid {
+  border-bottom: 1px solid rgb(255, 100, 0) !important;
+  box-shadow: 0 1px 0 0 rgb(255, 100, 0) !important;
+}
+/* invalid color */
+.input-field input[type="text"].invalid {
+  border-bottom: 1px solid rgb(255, 100, 0) !important;
+  box-shadow: 0 1px 0 0 rgb(255, 100, 0) !important;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: rgb(255, 100, 0);
+}
+/*********************************************************************
+**********************************************************************/

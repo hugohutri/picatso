@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../../styles.css";
 
 // Mobile view
 class Mobiili extends Component {
@@ -24,21 +25,17 @@ class Mobiili extends Component {
                   <div className="input-field col s12">
                     <input id="username1" type="text" className="validate" />
                     <label htmlFor="username1" className="active">
-                      Lobby ID
+                      Enter the Room Code
                     </label>
                   </div>
                 </div>
               </form>
-              <form
-                className="col s12"
-                onChange={this.handlePassword}
-                onSubmit={this.handleSubmit}
-              >
+              <form className="col s12">
                 <div className="row">
                   <div className="input-field col s12">
-                    <input id="password" type="password" className="validate" />
+                    <input id="password" type="text" className="validate" />
                     <label htmlFor="password" className="active">
-                      Username
+                      Choose Your Username
                     </label>
                   </div>
                 </div>
@@ -46,9 +43,10 @@ class Mobiili extends Component {
             </div>
             <div className="container section center-align">
               <div
-                className="btn waves-effect waves-light deep-orange darken-1"
+                className="btn-large waves-effect waves-light deep-orange darken-1"
                 onClick={this.handleSubmit}
               >
+                <i class="material-icons right">arrow_forward</i>
                 Join Lobby
               </div>
             </div>
