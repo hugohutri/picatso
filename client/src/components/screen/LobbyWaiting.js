@@ -2,9 +2,7 @@ import React, {Component} from "react";
 import '../../styles.css';
 import axios from "../../js/axios.js"
 
-import PlayerList from "./PlayerList"
 import {GameContext} from "../GameContext"
-import Timer from "./Timer"
 
 class LobbyWaiting extends Component {
     constructor(props) {

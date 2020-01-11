@@ -18,7 +18,7 @@ class Screen extends Component {
             zIndex:"-1000",
         };
         return ( 
-            <div className="window">
+            <div className="screen">
                 <div style={backgroundStyle}>
                 <Lobby/>
                 </div>

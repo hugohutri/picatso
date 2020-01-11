@@ -11,11 +11,17 @@ class PlayerList extends Component {
 
   render() { 
       const playerStyle = {
-          fontSize: "4vmin",
-          fontFamily: "Bangers",
-          textShadow: "1vmin 1vmin 2vmin black"
+        fontSize: "4vmin",
+        fontFamily: "Bangers",
+        textShadow: "1vmin 1vmin 2vmin black"
       }
-      return ( 
+      const playerListStyle = {
+        position: "fixed",
+        bottom: "0px",
+        width: "100%"
+      }
+      return (
+        <div style={playerListStyle}>
           <div className="container row center-align">
             <div className="col s12 l10 offset-l1 card black">
               {this.players && this.players.map((player) => 
@@ -25,6 +31,7 @@ class PlayerList extends Component {
               )}
             </div>
           </div>
+        </div>
         );
   }
 }

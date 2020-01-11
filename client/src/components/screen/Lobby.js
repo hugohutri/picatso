@@ -1,11 +1,11 @@
 import React, {Component} from "react";
 import '../../styles.css';
-import axios from "../../js/axios.js"
 
 import PlayerList from "./PlayerList"
 import {GameContext} from "../GameContext"
 import LobbyWaiting from "./LobbyWaiting";
 import LobbyTutorial from "./LobbyTutorial"
+import Round from "./Round"
 
 class Lobby extends Component {
     constructor(props) {
@@ -42,13 +42,14 @@ class Lobby extends Component {
         }
         console.log("MODE: "+ this.state.mode);
         return ( 
-            <div>
+            <div className="lobby">
                 <div className="row">
                     <div className="center-align flow-text" style={headerStyle}>
                         PICATSO
                     </div>
                     {this.state.mode === "waiting" && <LobbyWaiting updateLobbyState={this.updateLobbyState}/>}
-                    {this.state.mode === "tutorial" && <LobbyTutorial/>}
+                    {this.state.mode === "tutorial" && <LobbyTutorial updateLobbyState={this.updateLobbyState}/>}
+                    {this.state.mode === "round" && <Round updateLobbyState={this.updateLobbyState}/>}
                 </div>
                 <PlayerList/>
             </div>

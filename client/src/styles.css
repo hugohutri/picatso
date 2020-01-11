@@ -3,6 +3,10 @@
   min-height: 100vh;
 }
 
+.screen {
+  min-height: 100vh;
+}
+
 .app {
   margin: 0px;
   height: 100%;

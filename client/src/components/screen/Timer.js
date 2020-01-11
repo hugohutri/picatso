@@ -1,9 +1,9 @@
 import React, {Component} from "react"
 
 class Timer extends Component {
-    constructor() {
-        super();
-        this.state = { time: {}, seconds: 65 };
+    constructor(props) {
+        super(props);
+        this.state = { time: {}, seconds: this.props.seconds };
         this.timer = 0;
         this.startTimer = this.startTimer.bind(this);
         this.countDown = this.countDown.bind(this);
@@ -29,11 +29,12 @@ class Timer extends Component {
     componentDidMount() {
         let timeLeftVar = this.secondsToTime(this.state.seconds);
         this.setState({ time: timeLeftVar });
+        this.startTimer()
     }
     
     startTimer() {
-        if (this.timer == 0 && this.state.seconds > 0) {
-        this.timer = setInterval(this.countDown, 1000);
+        if (this.timer === 0 && this.state.seconds > 0) {
+            this.timer = setInterval(this.countDown, 1000);
         }
     }
     
@@ -46,16 +47,24 @@ class Timer extends Component {
         });
         
         // Check if we're at zero.
-        if (seconds == 0) { 
+        if (seconds === 0) { 
             clearInterval(this.timer);
+            this.props.startRound();
         }
     }
     
     render() {
+        const timerStyle = {
+            fontSize: "8vmin",
+            fontFamily: "Bangers",
+            textShadow: "4px 4px 8px black",
+            position: "fixed",
+            top: "0",
+            left: "10px",
+        }
         return(
-        <div>
-            <div>{this.state.time.m > 0 && this.state.time.m + "min"} {this.state.time.s}s</div>
-            <div className="btn white black-text row" onClick={this.startTimer}>Start</div>
+        <div style={timerStyle}>
+            <div className="white-text">{this.state.time.m > 0 && this.state.time.m + "min"} {this.state.time.s}s</div>
         </div>
         );
     }
