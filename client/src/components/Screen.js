@@ -21,7 +21,7 @@ class Screen extends Component {
       <div className="screen">
         <div style={backgroundStyle}>
           <Lobby />
-          <audio ref="audio_tag" src={sound} controls autoPlay />
+          <audio ref="audio_tag" src={sound} autoPlay loop muted />
         </div>
       </div>
     );
