@@ -3,7 +3,6 @@ import '../../styles.css';
 import axios from "../../js/axios.js"
 
 import PlayerList from "./PlayerList"
-import {GameContext} from "../GameContext"
 
 class Lobby extends Component {
     constructor(props) {
@@ -11,36 +10,38 @@ class Lobby extends Component {
         this.onClickStart = this.onClickStart.bind(this);
     }
 
-    static contextType = GameContext;
+    state = {
+        loading: true,
+        lobbies: []
+    };
 
     async componentDidMount() {
+        console.log("component");
         this.createLobby();
     }
     
     // Create new lobby
     async createLobby() {
-        const { data } = await axios.get( "/lobby/create");
-        if(data === null) return;
-        const [,setLobby] = this.context;
-        setLobby([{gameid: data.id}]);
+        const id = await axios.get( "/lobby/create");
+        console.log("id: " + id);
     };
 
     onClickStart() {
-        console.log("onClickStart called");
+        console.log(":D");
     }
 
     render() { 
         const headerStyle = {
-            fontSize: "14vmin",
+            fontSize: "100px",
             fontFamily: 'Bangers',
         }
         const idStyle = {
-            fontSize: "12vmin",
+            fontSize: "80px",
             fontFamily: "Bangers",
             textShadow: "4px 4px 8px black"
         }
         const guideStyle = {
-            fontSize: "4vmin",
+            fontSize: "25px",
             fontFamily: "Bangers",
             textShadow: "4px 4px 8px black"
         }
@@ -55,11 +56,9 @@ class Lobby extends Component {
             textShadow: "8px 8px 16px black"
         }
         const logoStyle = { 
-            fontSize: "12vmin",
+            fontSize: 80,
             textShadow: "4px 4px 8px black"
         };
-        const [lobby] = this.context;
-        const gameid = lobby[0].gameid;
         return ( 
             <div>
                 <div className="row">
@@ -71,7 +70,7 @@ class Lobby extends Component {
                             Go to picatso.fi <br/> on your mobile device to join in <br/> using room code
                         </div>
                         <div className="center-align white-text flow-text" style={idStyle}>
-                            {gameid || "loading..."}
+                            2554
                         </div>
                     </div>
                     <div className="col s3">
@@ -83,9 +82,9 @@ class Lobby extends Component {
                         </i>
                     </div>
                 </div>
-                <div className="container section center-align">
-                    <div className="col s12">
-                        <div className="btn-large white-text center black center" style={buttonStyle} onClick={this.onClickStart}>Play</div>
+                <div className="row">
+                    <div className="col s2 offset-s5">
+                        <div className="btn-large white-text center black" style={buttonStyle} onClick={this.onClickStart}>Play</div>
                     </div>
                 </div>
                 <PlayerList/>
