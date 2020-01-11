@@ -12,8 +12,8 @@ class LobbyWaiting extends Component {
 
     onClickStart() {
         console.log("onClickStart called");
-        const [,setLobby] = this.context;
-        setLobby([{mode: "tutorial"}]);
+        //const [lobby,setLobby] = this.context;
+        //setLobby([{lobby}]);
         this.props.updateLobbyState("tutorial");
     }
 

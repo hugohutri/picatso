@@ -14,8 +14,8 @@ class LobbyTutorial extends Component {
 
     timerStopped() {
         console.log("timerStopped called");
-        const [,setLobby] = this.context;
-        setLobby([{mode: "round"}]);
+        //const [,setLobby] = this.context;
+        //setLobby([{mode: "round"}]);
         this.props.updateLobbyState("round");
     }
 

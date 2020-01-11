@@ -14,15 +14,14 @@ class PlayerList extends Component {
     try {
       setInterval(async () => {
         const { data } = await axios.post("/lobby/players", { info: {gameid} } );
-        const [players] = [data.players]
-        console.log("DATA: " + players);
+        const [players] = [data.players];
         const [,setLobby] = this.context;
         setLobby([{
           gameid: lobby[0].gameid,
           mode: lobby[0].mode,
           players: data.players
         }]);
-      }, 3000);
+      }, 2000);
     } catch(e) {
       console.log(e);
     }
@@ -41,6 +40,7 @@ class PlayerList extends Component {
       }
       const [lobby] = this.context;
       const players = lobby[0].players;
+      if(players == null) return null;
       return (
         <div style={playerListStyle}>
           <div className="container row center-align">
