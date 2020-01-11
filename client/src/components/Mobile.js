@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import Nav from "./Nav";
 import MainMenu from "./mobile/MainMenu";
 import Background from "../images/background1.png";
-import Music from "./Music";
+import sound from "./bensound-funnysong.mp3";
 
 // Everything rendered in the mobile will be here
 class Mobile extends Component {
@@ -25,7 +25,7 @@ class Mobile extends Component {
         <div style={backgroundStyle}>
           <div className="window container">
             <MainMenu />
-            <Music />
+            <audio ref="audio_tag" src={sound} controls autoPlay />
           </div>
         </div>
       </div>
