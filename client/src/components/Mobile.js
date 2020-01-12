@@ -7,6 +7,7 @@ import MainMenu from "./mobile/MainMenu";
 import Waiting from "./mobile/Waiting";
 import RoundInProgress from "./mobile/RoundInProgress";
 import Answering from "./mobile/Answering";
+import Voting from "./mobile/Voting";
 import Background from "../images/background1.png";
 import sound from "./bensound-funnysong.mp3";
 
@@ -46,6 +47,7 @@ class Mobile extends Component {
                   <Route path="/wait"             component={ Waiting } />
                   <Route path='/round'            component={ RoundInProgress } />
                   <Route path='/answer'           component={ Answering } />
+                  <Route path='/vote'             component={ Voting } />
                 </Switch>
                 <audio
                   id="myaudio"
