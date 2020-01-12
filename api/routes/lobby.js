@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+/*
 const lobbies = [
   {
     id: "1234",
@@ -11,6 +12,54 @@ const lobbies = [
   {
     id: "2554",
     players: ["sinisentalonnalle"],
+    mode: "waiting",
+    round: 0
+  }
+];
+*/
+
+const lobbies = [
+  {
+    id: "1234",
+    players: [
+      {
+        name: "jappe",
+        points: 0,
+        answers: ["olen bot","ihan ok juttu","joopa joo"]
+      },
+      {
+        name: "liisa",
+        points: 0,
+        answers: ["suuri miekka","lihaa myynnissä","lompakko"]
+      }, 
+      {
+        name: "kirvesmies",
+        points: 0,
+        answers: ["puu kaatuu","oispa kaakaota","meni päin mäntyä"]
+      }
+    ],
+    mode: "waiting",
+    round: 0
+  },
+  {
+    id: "2554",
+    players: [
+      {
+        name: "peka",
+        points: 0,
+        answers: ["olen bot","ihan ok juttu","joopa joo"]
+      },
+      {
+        name: "lompakko",
+        points: 0,
+        answers: ["suuri miekka","lihaa myynnissä","Olen liisa"]
+      }, 
+      {
+        name: "hiihtäjä",
+        points: 0,
+        answers: ["puu kaatuu","oispa kaakaota","meni päin mäntyä"]
+      }
+    ],
     mode: "waiting",
     round: 0
   }
@@ -73,13 +122,38 @@ function lobbySetRound(id, round) {
   return null;
 }
 
+// Add answer
+function addAnswer(id, username, answer) {
+
+  // Loop lobbies
+  for (var i = 0,len = lobbies.length; i < len; i++) {
+    if (lobbies[i].id === id) {
+
+      // Loop players
+      const players = lobbies[i].players;
+      for (var k = 0,len2 = players.length; k < len2; k++) {
+        if (players[k].name === username) {
+
+          // Store the answer
+          lobbies[i].players[k].answers.push(answer);
+        }
+      }
+    }
+  }
+}
+
 // Join to the lobby
 function joinLobby(id, username) {
   for (var i = 0,len = lobbies.length; i < len; i++) {
       if (lobbies[i].id === id) {
-          if(lobbies[i].players.length > 10)
+          if(lobbies[i].players.length > 12)
             return 0; // The lobby is full
-          lobbies[i].players.push(username);
+          const player = {
+            name: username,
+            points: 0,
+            answers: []
+          };
+          lobbies[i].players.push(player);
           return 1;
       }
   }
@@ -176,6 +250,19 @@ router.post( "/setmode/", ( req, res, next ) => {
   lobbySetMode(gameid, mode);
 
   res.status( 200 );
+});
+
+// Request to submit an answer for a player
+router.post( "/submitanswer/", ( req, res, next ) => {
+  const info = req.body.info;
+
+  const gameid = info.gameid.toString();
+  const username = info.username;
+  const answer = info.answer;
+
+  addAnswer(gameid, username, answer);
+
+  res.status( 200 ).json({answer});
 });
 
 module.exports = router;

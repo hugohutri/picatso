@@ -51,7 +51,7 @@ class MainMenu extends Component {
       // Joining was successful
       const [,setUser] = this.context;
       setUser({
-        name: this.info.user,
+        name: this.info.username,
         gameid: this.info.gameid,
         question: '',
         answer: '',

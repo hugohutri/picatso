@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import '../../styles.css';
 
 
-class Question extends Component {
+class Announcement extends Component {
     render() { 
         const textStyle = {
             fontSize: "6vmin",
@@ -21,4 +21,4 @@ class Question extends Component {
     }
 }
  
-export default Question;
+export default Announcement;

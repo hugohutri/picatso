@@ -45,8 +45,8 @@ class PlayerList extends Component {
           <div className="container row center-align">
             <div className="col s12 l10 offset-l1 card black">
               {players && players.map((player) => 
-                <div className="col s4 m3 l3" key={player}>
-                  <div className="white-text center" style={playerStyle}>{player}</div>
+                <div className="col s4 m3 l3" key={player.name}>
+                  <div className="white-text center" style={playerStyle}>{player.name}</div>
                 </div>
               )}
             </div>
