@@ -7,6 +7,8 @@ import LobbyWaiting from "./LobbyWaiting";
 import LobbyTutorial from "./LobbyTutorial"
 import Round from "./Round"
 
+import axios from "../../js/axios"
+
 class Lobby extends Component {
     constructor(props) {
         super(props);
@@ -20,11 +22,16 @@ class Lobby extends Component {
 
     static contextType = GameContext;
 
-    componentDidMount() {
+    async componentDidMount() {
         this.createLobby();
         const [lobby] = this.context;
         const mode = lobby[0].mode;
-        this.setState(() => ({mode: mode}))
+        this.setState(() => ({mode: mode}));
+        const info =   {
+            gameid: lobby[0].gameid,
+            mode: mode
+        };
+        await axios.post("/lobby/setmode", { info: info } );
     }
     
     // Create new lobby
@@ -43,8 +50,6 @@ class Lobby extends Component {
     };
 
     updateLobbyState(newmode) {
-        const [lobby] = this.context;
-        const mode = lobby[0].mode;
         this.setState(() => ({
             mode: newmode
         }))

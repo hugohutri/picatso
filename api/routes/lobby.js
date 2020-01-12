@@ -4,11 +4,13 @@ var router = express.Router();
 const lobbies = [
   {
     id: "1234",
-    players: ["nalle","liisa","runtu"]
+    players: ["nalle","liisa","runtu"],
+    mode: "waiting"
   },
   {
     id: "2554",
-    players: ["sinisentalonnalle"]
+    players: ["sinisentalonnalle"],
+    mode: "waiting"
   }
 ];
 
@@ -37,7 +39,17 @@ const content = [
 function findLobby(id) {
   for (var i = 0,len = lobbies.length; i < len; i++) {
       if (lobbies[i].id == id) {
-          return lobbies[i].players;
+          return lobbies[i];
+      }
+  }
+  return null;
+}
+
+// Set the mode of the lobby
+function lobbySetMode(id, mode) {
+  for (var i = 0,len = lobbies.length; i < len; i++) {
+      if (lobbies[i].id == id) {
+          lobbies[i].mode = mode;
       }
   }
   return null;
@@ -102,17 +114,37 @@ router.get( "/create/", ( req, res, next ) => {
 // Request to get players of the lobby
 router.post( "/players/", ( req, res, next ) => {
   const info = req.body.info;
-  let players = findLobby(info.gameid.toString());
-  if(players === null) {
+  let lobby = findLobby(info.gameid.toString());
+  if(lobby === null) {
     players = "error";
+    res.status( 200 ).json({players: players});
   }
-  res.status( 200 ).json({players: players});
+  res.status( 200 ).json({players: lobby.players});
 });
 
 // Request to the questions
 router.get( "/content/", ( req, res, next ) => {
   //res.status( 200 ).json({id: "1234"});
   res.status( 200 ).json({content});
+});
+
+// Request to get state of the lobby
+router.post( "/getmode/", ( req, res, next ) => {
+  const info = req.body.info;
+  let lobby = findLobby(info.gameid.toString());
+
+  res.status( 200 ).json({mode: lobby.mode});
+});
+
+// Request to set state of the lobby
+router.post( "/setmode/", ( req, res, next ) => {
+  const info = req.body.info;
+  const gameid = info.gameid.toString();
+  const mode = info.mode;
+
+  lobbySetMode(gameid, mode);
+
+  res.status( 200 );
 });
 
 module.exports = router;

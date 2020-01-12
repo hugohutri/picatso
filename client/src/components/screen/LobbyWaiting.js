@@ -2,19 +2,22 @@ import React, {Component} from "react";
 import '../../styles.css';
 import axios from "../../js/axios.js"
 
-import {GameContext} from "../GameContext"
-
 class LobbyWaiting extends Component {
     constructor(props) {
         super(props);
         this.onClickStart = this.onClickStart.bind(this);
     }
 
-    onClickStart() {
+    async onClickStart() {
         console.log("onClickStart called");
         //const [lobby,setLobby] = this.context;
         //setLobby([{lobby}]);
         this.props.updateLobbyState("tutorial");
+        const info =   {
+            gameid: this.props.gameid,
+            mode: "tutorial"
+        };
+        await axios.post("/lobby/setmode", { info: info } );
     }
 
     render() { 

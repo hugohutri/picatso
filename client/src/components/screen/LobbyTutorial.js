@@ -3,6 +3,7 @@ import '../../styles.css';
 
 import Timer from "./Timer"
 import {GameContext} from "../GameContext"
+import axios from "../../js/axios"
 
 class LobbyTutorial extends Component {
     constructor(props) {
@@ -12,11 +13,17 @@ class LobbyTutorial extends Component {
 
     static contextType = GameContext;
 
-    timerStopped() {
+    async timerStopped() {
         console.log("timerStopped called");
         //const [,setLobby] = this.context;
         //setLobby([{mode: "round"}]);
         this.props.updateLobbyState("round");
+        const [lobby] = this.context;
+        const info =   {
+            gameid: lobby[0].gameid,
+            mode: "answer"
+        };
+        await axios.post("/lobby/setmode", { info: info } );
     }
 
     render() { 
@@ -46,7 +53,7 @@ class LobbyTutorial extends Component {
                         </div>
 
                     </div>
-                    <Timer seconds="3" timerStopped={this.timerStopped}/>
+                    <Timer seconds="4" timerStopped={this.timerStopped}/>
                 </div>
             </div>
          );

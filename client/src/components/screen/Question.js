@@ -1,10 +1,8 @@
 import React, {Component} from "react";
 import '../../styles.css';
-import Timer from "./Timer"
 
 
 class Question extends Component {
-
     render() { 
         const guideStyle = {
             fontSize: "3vmin",
@@ -27,7 +25,7 @@ class Question extends Component {
                             <img
                             className="responsive-img"
                             src={this.props.url}
-                            alt="Game picture"
+                            alt="question content"
                             />
                         </div>
                     }

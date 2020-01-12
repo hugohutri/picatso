@@ -30,7 +30,7 @@ class Answering extends Component {
                 className="btn-large waves-effect waves-light deep-orange darken-1"
                 onClick={this.handleSubmit}
               >
-                <i class="material-icons right">arrow_forward</i>
+                <i className="material-icons right">arrow_forward</i>
                 Submit answer
               </div>
             </div>

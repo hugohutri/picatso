@@ -17,9 +17,6 @@ class Screen extends Component {
       backgroundImage: "url(" + Background + ")",
       zIndex: "-1000"
     };
-    const audioStyle = {
-        volume: "0.01",
-    };
 
     return (
       <div className="screen">

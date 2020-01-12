@@ -58,18 +58,7 @@ class Round extends Component {
 
     render() { 
         const round = this.state.round;
-
-        const guideStyle = {
-            fontSize: "3vmin",
-            fontFamily: "Bangers",
-            textShadow: "4px 4px 8px black"
-        }
-        const questionStyle = {
-            fontSize: "4vmin",
-            fontFamily: "Bangers",
-            textShadow: "4px 4px 8px black"
-        }
-
+        
         // Render questions
         if(round < 3 && this.state.content) {
             const content = this.state.content;

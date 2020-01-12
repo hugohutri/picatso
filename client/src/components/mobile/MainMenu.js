@@ -42,10 +42,18 @@ class MainMenu extends Component {
         username: this.info.username,
         lobbyid: this.info.gameid
     };
-    const { data } = await axios.post("/lobby/join", { info: info });
 
+    const { data } = await axios.post("/lobby/join", { info: info });
     const lobbyStatus = data.lobbyStatus;
+
     if(lobbyStatus === 1) {
+      // Joining was successful
+      const [,setLobby] = this.context;
+      setLobby([{
+        gameid: this.info.gameid,
+        mode: "waiting",
+        players: []
+      }]);
       this.setState({ goToNextPage: true});
     }
   }

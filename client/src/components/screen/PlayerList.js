@@ -14,7 +14,6 @@ class PlayerList extends Component {
     try {
       setInterval(async () => {
         const { data } = await axios.post("/lobby/players", { info: {gameid} } );
-        const [players] = [data.players];
         const [,setLobby] = this.context;
         setLobby([{
           gameid: lobby[0].gameid,
