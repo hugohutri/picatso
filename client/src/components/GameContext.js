@@ -10,6 +10,7 @@ export const GameProvider = props => {
           gameid: '',
           mode: 'waiting',
           players: [],
+          questions: [],
       }
     ]);
 

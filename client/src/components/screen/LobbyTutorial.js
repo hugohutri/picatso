@@ -41,11 +41,11 @@ class LobbyTutorial extends Component {
                 <div>
                     <div className="col s6 offset-s3">
                         <div className="center-align white-text flow-text" style={guideStyle}>
-                            This is tutorial. User your phone to answer blaa blaa blaa...
+                            Game is starting. User your phone to answer the questions!
                         </div>
                         <div className="center-align">
                             <i
-                                className="material-icons white-text hide-on-small-and-down"
+                                className="material-icons white-text"
                                 style={logoStyle}
                             >
                                 phone_android

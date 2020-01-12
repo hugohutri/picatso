@@ -25,17 +25,17 @@ const lobbies = [
       {
         name: "jappe",
         points: 0,
-        answers: ["olen bot","ihan ok juttu","joopa joo"]
+        answers: ["money","There is a cookie monster","äijät"]
       },
       {
         name: "liisa",
         points: 0,
-        answers: ["suuri miekka","lihaa myynnissä","lompakko"]
+        answers: ["suuri miekka","lightspeed laser","titeläiset"]
       }, 
       {
         name: "kirvesmies",
         points: 0,
-        answers: ["puu kaatuu","oispa kaakaota","meni päin mäntyä"]
+        answers: ["hat","sisäänkäynti","react kurssi"]
       }
     ],
     mode: "waiting",
@@ -80,13 +80,13 @@ const content = [
   },
   {
       guide: "Fill in the plank",
-      question: "People say I have small hands, but I make up for it with my ______.",
+      question: "What's the real reason for Mona Lisa's smile?",
       url: "",//https://fi.wikipedia.org/wiki/Tiedosto:Life_of_George_Washington,_Deathbed.jpg",
       timer: "3"
   },
   {
       guide: "Answer something funny",
-      question: "What's the real reason for Mona Lisa's smile?",
+      question: "People say I have small hands, but I make up for it with my ______.",
       url: "",
       timer: "3"
   }

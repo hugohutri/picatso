@@ -10,20 +10,26 @@ class PlayerList extends Component {
     this.players = lobby[0].players;
     const gameid = lobby[0].gameid;
     if(gameid === "") return;
+    this.getPlayers(gameid);
 
     try {
       setInterval(async () => {
-        const { data } = await axios.post("/lobby/players", { info: {gameid} } );
-        const [,setLobby] = this.context;
-        setLobby([{
-          gameid: lobby[0].gameid,
-          mode: lobby[0].mode,
-          players: data.players
-        }]);
+        this.getPlayers(gameid);
       }, 2000);
     } catch(e) {
       console.log(e);
     }
+  }
+
+  async getPlayers(gameid) {
+    const { data } = await axios.post("/lobby/players", { info: {gameid} } );
+    const [lobby,setLobby] = this.context;
+    setLobby([{
+      gameid: lobby[0].gameid,
+      mode: lobby[0].mode,
+      players: data.players,
+      questions: lobby[0].questions
+    }]);
   }
 
   render() { 

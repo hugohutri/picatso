@@ -5,7 +5,7 @@ import '../../styles.css';
 class Announcement extends Component {
     render() { 
         const textStyle = {
-            fontSize: "6vmin",
+            fontSize: "10vmin",
             fontFamily: "Bangers",
             textShadow: "4px 4px 8px black"
         }
