@@ -39,7 +39,7 @@ class Round extends Component {
     }
 
     state = {
-        content: [],
+        content: null,
     }
 
     static contextType = GameContext;
@@ -47,12 +47,18 @@ class Round extends Component {
     timerStopped() {
         console.log(this.state.round);
         this.setState({ round: this.state.round+1 });
+        this.getContent();
     }
 
     async componentDidMount() {
-        console.log(":DDDDDDDDDD");
-        const { data } = await axios.get( "/lobby/content" );
-        console.log(data);
+        this.getContent();
+    }
+
+    async getContent() {
+        const [lobby] = this.context;
+        const gameid = lobby[0].gameid;
+        const info = { gameid: gameid, round: this.state.round}
+        const { data } = await axios.post( "/lobby/content", { info: info} );
         this.setState({content: data.content});
     }
 
@@ -62,10 +68,10 @@ class Round extends Component {
         // Render questions
         if(round < 3 && this.state.content) {
             const content = this.state.content;
-            const guide     = content[round].guide;
-            const question  = content[round].question;
-            const url       = content[round].url;
-            const timer     = content[round].timer;
+            const guide     = content.guide;
+            const question  = content.question;
+            const url       = content.url;
+            const timer     = content.timer;
             return ( 
                 <div>
                     {round < 3 && (

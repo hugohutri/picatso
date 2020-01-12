@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import {UserProvider} from "./mobile/UserContext"
 import Nav from "./Nav";
 import MainMenu from "./mobile/MainMenu";
 import Waiting from "./mobile/Waiting";
@@ -11,6 +12,15 @@ import sound from "./bensound-funnysong.mp3";
 
 // Everything rendered in the mobile will be here
 class Mobile extends Component {
+  constructor(props) {
+    super(props);
+    this.username = "";
+  }
+
+  setUsername(_username) {
+    this.username = _username;
+  }
+
   render() {
     const backgroundStyle = {
       height: "100vh",
@@ -26,27 +36,29 @@ class Mobile extends Component {
 
     return (
       <div>
-        <Nav />
-        <Router>
-          <div style={backgroundStyle}>
-            <div className="window container">
-              <Switch>
-                <Route path="/" exact           component={ MainMenu } />
-                <Route path="/wait"             component={ Waiting } />
-                <Route path='/round'            component={ RoundInProgress } />
-                <Route path='/answer'           component={ Answering } />
-              </Switch>
-              <audio
-                id="myaudio"
-                ref="audio_tag"
-                src={sound}
-                autoPlay
-                loop
-                muted
-              />
+        <UserProvider>
+          <Nav />
+          <Router>
+            <div style={backgroundStyle}>
+              <div className="window container">
+                <Switch>
+                  <Route path="/" exact           component={ MainMenu } />
+                  <Route path="/wait"             component={ Waiting } />
+                  <Route path='/round'            component={ RoundInProgress } />
+                  <Route path='/answer'           component={ Answering } />
+                </Switch>
+                <audio
+                  id="myaudio"
+                  ref="audio_tag"
+                  src={sound}
+                  autoPlay
+                  loop
+                  muted
+                />
+              </div>
             </div>
-          </div>
-        </Router>
+          </Router>
+        </UserProvider>
       </div>
     );
   }

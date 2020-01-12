@@ -5,12 +5,14 @@ const lobbies = [
   {
     id: "1234",
     players: ["nalle","liisa","runtu"],
-    mode: "waiting"
+    mode: "waiting",
+    round: 0
   },
   {
     id: "2554",
     players: ["sinisentalonnalle"],
-    mode: "waiting"
+    mode: "waiting",
+    round: 0
   }
 ];
 
@@ -22,6 +24,12 @@ const content = [
       timer: "3"
   },
   {
+      guide: "Answer something funny",
+      question: "If Finland had area 51, what would be its biggest secret?",
+      url: "",//https://pixabay.com/fi/photos/mies-secret-kasvot-salaper%C3%A4inen-4393964/",
+      timer: "3"
+  },
+  {
       guide: "Fill in the plank",
       question: "People say I have small hands, but I make up for it with my ______.",
       url: "",//https://fi.wikipedia.org/wiki/Tiedosto:Life_of_George_Washington,_Deathbed.jpg",
@@ -29,8 +37,8 @@ const content = [
   },
   {
       guide: "Answer something funny",
-      question: "If Finland had area 51, what would be its biggest secret?",
-      url: "",//https://pixabay.com/fi/photos/mies-secret-kasvot-salaper%C3%A4inen-4393964/",
+      question: "What's the real reason for Mona Lisa's smile?",
+      url: "",
       timer: "3"
   }
 ];
@@ -50,6 +58,16 @@ function lobbySetMode(id, mode) {
   for (var i = 0,len = lobbies.length; i < len; i++) {
       if (lobbies[i].id == id) {
           lobbies[i].mode = mode;
+      }
+  }
+  return null;
+}
+
+// Set the round of the lobby
+function lobbySetRound(id, round) {
+  for (var i = 0,len = lobbies.length; i < len; i++) {
+      if (lobbies[i].id == id) {
+          lobbies[i].round = round;
       }
   }
   return null;
@@ -123,9 +141,22 @@ router.post( "/players/", ( req, res, next ) => {
 });
 
 // Request to the questions
-router.get( "/content/", ( req, res, next ) => {
+router.post( "/content/", ( req, res, next ) => {
+  const info = req.body.info;
   //res.status( 200 ).json({id: "1234"});
-  res.status( 200 ).json({content});
+  const data = content[info.round];
+  lobbySetRound(info.gameid, info.round)
+  res.status( 200 ).json({ content: data });
+});
+
+// Request to the questions for mobile
+router.post( "/mobilecontent/", ( req, res, next ) => {
+  const info = req.body.info;
+  //res.status( 200 ).json({id: "1234"});
+  const lobby = findLobby(info.gameid);
+  const round = lobby.round;
+  const data = content[round];
+  res.status( 200 ).json({ content: data, round: round });
 });
 
 // Request to get state of the lobby

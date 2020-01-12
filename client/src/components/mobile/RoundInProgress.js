@@ -3,7 +3,7 @@ import {Redirect} from "react-router-dom";
 import "../../styles.css";
 
 import axios from "../../js/axios"
-import {GameContext} from "../GameContext"
+import {UserContext} from "./UserContext"
 
 //Odotusruutu
 class RoundInProgress extends Component {
@@ -13,21 +13,23 @@ class RoundInProgress extends Component {
     this.state = { goToNextPage: false };
   }
 
-  static contextType = GameContext;
+  static contextType = UserContext;
 
   async componentDidMount() {
-    const [lobby] = this.context;
-    const gameid = lobby[0].gameid;
+    const [user,] = this.context;
+    const gameid = user.gameid;
     if(gameid === "") return;
     try {
       this.backendInterval = setInterval(async () => {
         const { data } = await axios.post("/lobby/getmode", { info: {gameid} } );
-        const [,setLobby] = this.context;
-        setLobby([{
-          gameid: lobby[0].gameid,
-          mode: data.mode,
-          players: data.players
-        }]);
+        const [user,setUser] = this.context;
+        setUser({
+          name: user.name,
+          gameid: user.gameid,
+          question: '',
+          answer: '',
+          mode: data.mode
+        });
         if(data.mode === "answer") {
           this.setState({ goToNextPage: true});
         }
@@ -53,6 +55,7 @@ class RoundInProgress extends Component {
       <div className="login">
         <div className="row">
           <div className="col card s10 offset-s1 m6 offset-m3 center-align">
+            <p/>
             <i className="material-icons black-text" style={logoStyle}>
               desktop_windows
             </i>

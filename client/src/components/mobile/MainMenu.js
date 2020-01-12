@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import {Redirect} from "react-router-dom";
 import axios from "../../js/axios"
 import "../../styles.css";
-import {GameContext} from "../GameContext"
+import {UserContext} from "./UserContext"
+
 
 // Mobile view
 class MainMenu extends Component {
@@ -17,7 +18,7 @@ class MainMenu extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  static contextType = GameContext
+  static contextType = UserContext
 
   handleSubmit(event) {
     event.preventDefault();
@@ -48,12 +49,14 @@ class MainMenu extends Component {
 
     if(lobbyStatus === 1) {
       // Joining was successful
-      const [,setLobby] = this.context;
-      setLobby([{
+      const [,setUser] = this.context;
+      setUser({
+        name: this.info.user,
         gameid: this.info.gameid,
-        mode: "waiting",
-        players: []
-      }]);
+        question: '',
+        answer: '',
+        mode: "waiting"
+      });
       this.setState({ goToNextPage: true});
     }
   }
@@ -69,6 +72,7 @@ class MainMenu extends Component {
       <div className="login">
         <div className="row">
           <div className="col card s10 offset-s1 m6 offset-m3 center-align">
+            <p/>
             <div className="center-align flow-text" style={headerStyle}>
               Welcome to Picatso!
             </div>

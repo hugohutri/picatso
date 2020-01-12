@@ -3,7 +3,7 @@ import {Redirect} from "react-router-dom";
 import "../../styles.css";
 
 import axios from "../../js/axios"
-import {GameContext} from "../GameContext"
+import {UserContext} from "./UserContext"
 
 // Waiting for the game to start
 class Waiting extends Component {
@@ -13,32 +13,34 @@ class Waiting extends Component {
     this.state = { goToNextPage: false };
   }
 
-  static contextType = GameContext;
+  static contextType = UserContext;
 
   async componentDidMount() {
-    const [lobby] = this.context;
-    const gameid = lobby[0].gameid;
+    const [user] = this.context;
+    const gameid = user.gameid;
     if(gameid === "") return;
     try {
       this.backendInterval = setInterval(async () => {
         const { data } = await axios.post("/lobby/getmode", { info: {gameid} } );
-        const [,setLobby] = this.context;
-        setLobby([{
-          gameid: lobby[0].gameid,
-          mode: data.mode,
-          players: data.players
-        }]);
+        const [user,setUser] = this.context;
+        setUser({
+          name: user.name,
+          gameid: user.gameid,
+          question: user.question,
+          answer: user.question,
+          mode: data.mode
+        });
         if(data.mode === "tutorial") {
           this.setState({ goToNextPage: true});
         }
-      }, 2000);
+      }, 1000);
     } catch(e) {
       console.log(e);
     }
   }
 
   componentWillUnmount() {
-    clearInterval(this.backendInterval);
+    if(this.backendInterval) clearInterval(this.backendInterval);
   }
 
   render() {
@@ -48,11 +50,13 @@ class Waiting extends Component {
       fontSize: "6vmin",
       fontFamily: "Bangers"
     };
+
     const logoStyle = { fontSize: "10vmin" };
     return (
       <div className="login">
         <div className="row">
           <div className="col card s10 offset-s1 m6 offset-m3 center-align">
+            <p/>
             <i className="material-icons black-text" style={logoStyle}>
               person
             </i>
