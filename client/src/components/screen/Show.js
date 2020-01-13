@@ -147,7 +147,7 @@ class Show extends Component {
             The question was
           </div>
           <Question url="" guide="" question={this.state.question}></Question>
-          <Timer seconds="3" timerStopped={this.timerStopped} />
+          <Timer seconds="7" timerStopped={this.timerStopped} />
         </div>
       );
     }

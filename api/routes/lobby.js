@@ -24,17 +24,17 @@ const lobbies = [
     players: [
       {
         name: "jappe",
-        points: 1000,
+        points: 0,
         answers: ["money", "There is a cookie monster", "äijät"]
       },
       {
         name: "liisa",
-        points: 2000,
+        points: 0,
         answers: ["suuri miekka", "lightspeed laser", "titeläiset"]
       },
       {
         name: "kirvesmies",
-        points: 3000,
+        points: 0,
         answers: ["hat", "sisäänkäynti", "react kurssi"]
       }
     ],
@@ -70,26 +70,26 @@ const content = [
     guide: "Fill in the plank",
     question: "It's over anakin I have the ___________! ",
     url: "",
-    timer: "5"
+    timer: "20"
   },
   {
     guide: "Answer something funny",
     question: "If Finland had area 51, what would be its biggest secret?",
     url: "",
-    timer: "5"
+    timer: "20"
   },
   {
     guide: "Fill in the plank",
     question: "What's the real reason for Mona Lisa's smile?",
     url: "",
-    timer: "5"
+    timer: "20"
   },
   {
     guide: "Answer something funny",
     question:
       "People say I have small hands, but I make up for it with my ______.",
     url: "",
-    timer: "5"
+    timer: "20"
   }
 ];
 

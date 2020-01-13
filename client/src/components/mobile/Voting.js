@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import "../../styles.css";
 
-import { GameContext } from "../GameContext";
 import axios from "../../js/axios";
 import { UserContext } from "./UserContext";
 

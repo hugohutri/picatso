@@ -127,7 +127,7 @@ class Round extends Component {
         <div>
           <div>
             <Announcement text="Time to vote for the best answer!" />
-            <Timer seconds="3" timerStopped={this.timerStopped} />
+            <Timer seconds="6" timerStopped={this.timerStopped} />
           </div>
         </div>
       );
