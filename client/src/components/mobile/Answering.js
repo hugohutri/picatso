@@ -111,6 +111,9 @@ class Answering extends Component {
       fontSize: "4vmin",
       fontFamily: "Bangers"
     };
+    const logoSmallStyle = { fontSize: "15vmin" };
+    const logoBigStyle = { fontSize: "40vmin" };
+
     if (!this.state.waitForNext) {
       return (
         <div className="login">
@@ -118,6 +121,9 @@ class Answering extends Component {
             <div className="col card s10 offset-s1 m6 offset-m3 center-align">
               <p />
               <div>
+                <i className="material-icons black-text" style={logoSmallStyle}>
+                  contact_support
+                </i>
                 <div className="center-align flow-text" style={headerStyle}>
                   {this.state.question}
                 </div>
@@ -130,7 +136,7 @@ class Answering extends Component {
                     <div className="input-field col s12">
                       <input id="password" type="text" className="validate" />
                       <label htmlFor="password" className="active">
-                        Insert clever answer:
+                        Come up with a clever answer:
                       </label>
                     </div>
                   </div>
@@ -155,13 +161,12 @@ class Answering extends Component {
       fontSize: "6vmin",
       fontFamily: "Bangers"
     };
-    const logoStyle = { fontSize: "40vmin" };
     return (
       <div className="login">
         <div className="row">
           <div className="col card s10 offset-s1 m6 offset-m3 center-align">
             <p />
-            <i className="material-icons black-text" style={logoStyle}>
+            <i className="material-icons black-text" style={logoBigStyle}>
               timer
             </i>
             <div className="center-align flow-text" style={infoStyle}>
