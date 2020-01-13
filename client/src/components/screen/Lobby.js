@@ -6,6 +6,7 @@ import { GameContext } from "../GameContext";
 import LobbyWaiting from "./LobbyWaiting";
 import LobbyTutorial from "./LobbyTutorial";
 import LobbyRound from "./LobbyRound";
+import LobbyScore from "./LobbyScore";
 import Show from "./Show";
 
 import axios from "../../js/axios";
@@ -97,6 +98,9 @@ class Lobby extends Component {
             <LobbyRound updateLobbyState={this.updateLobbyState} />
           )}
           {mode === "show" && <Show updateLobbyState={this.updateLobbyState} />}
+          {mode === "score" && (
+            <LobbyScore updateLobbyState={this.updateLobbyState} />
+          )}
         </div>
         {gameid && <PlayerList gameid={gameid} />}
       </div>

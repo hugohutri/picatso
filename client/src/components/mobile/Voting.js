@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import "../../styles.css";
 
 import { GameContext } from "../GameContext";
@@ -26,14 +26,15 @@ class Voting extends Component {
     round: 0,
     current: 0,
     mode: "show",
-    isvoted: false
+    isvoted: false,
+    toScorePage: false
   };
 
   static contextType = UserContext;
 
   submitVote(player) {
     console.log(player.name);
-    this.sendVote(this.sendVote);
+    this.sendVote(player.name);
     this.setState({ isvoted: true, wait: true });
   }
 
@@ -51,8 +52,6 @@ class Voting extends Component {
     const { data } = await axios.post("/lobby/getround", {
       info: { gameid }
     });
-    console.log("ROUND");
-    console.log(data.round);
     if (data.round !== this.state.round) {
       this.setState({ round: data.round });
     }
@@ -76,6 +75,7 @@ class Voting extends Component {
 
     this.setState({ mode: data.mode });
     if (data.mode !== "vote") this.setState({ isvoted: false });
+    if (data.mode === "score") this.setState({ toScorePage: true });
   }
 
   async getData(gameid) {
@@ -115,16 +115,19 @@ class Voting extends Component {
   }
 
   // Send the vote to the server
-  async sendVote() {
+  async sendVote(name) {
+    const [user] = this.context;
+    const gameid = user.gameid;
     const info = {
-      gameid: this.props.gameid,
-      choice: this.state.choice
+      gameid: gameid,
+      choice: name
     };
-
-    //await axios.post("/lobby/vote", { info: info });
+    console.log("name " + name + " " + gameid);
+    await axios.post("/lobby/vote", { info: info });
   }
 
   render() {
+    if (this.state.toScorePage) return <Redirect to="/score" />;
     const headerStyle = {
       fontSize: "5vmin",
       fontFamily: "Bangers"

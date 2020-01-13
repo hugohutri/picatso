@@ -24,17 +24,17 @@ const lobbies = [
     players: [
       {
         name: "jappe",
-        points: 0,
+        points: 1000,
         answers: ["money", "There is a cookie monster", "äijät"]
       },
       {
         name: "liisa",
-        points: 0,
+        points: 2000,
         answers: ["suuri miekka", "lightspeed laser", "titeläiset"]
       },
       {
         name: "kirvesmies",
-        points: 0,
+        points: 3000,
         answers: ["hat", "sisäänkäynti", "react kurssi"]
       }
     ],
@@ -144,6 +144,22 @@ function addAnswer(id, username, answer) {
         if (players[k].name === username) {
           // Store the answer
           lobbies[i].players[k].answers.push(answer);
+        }
+      }
+    }
+  }
+}
+
+// Join to the lobby
+function addPoints(id, choice) {
+  for (var i = 0, len = lobbies.length; i < len; i++) {
+    if (lobbies[i].id === id) {
+      // Loop players
+      const players = lobbies[i].players;
+      for (var k = 0, len2 = players.length; k < len2; k++) {
+        if (players[k].name === choice) {
+          // add points
+          lobbies[i].players[k].points += 100;
         }
       }
     }
@@ -287,6 +303,17 @@ router.post("/submitanswer/", (req, res, next) => {
   addAnswer(gameid, username, answer);
 
   res.status(200).json({ answer });
+});
+
+// Request to set state of the lobby
+router.post("/vote/", (req, res, next) => {
+  const info = req.body.info;
+  const gameid = info.gameid.toString();
+  const choice = info.choice;
+
+  addPoints(gameid, choice);
+
+  res.status(200).json({ choice: choice });
 });
 
 module.exports = router;

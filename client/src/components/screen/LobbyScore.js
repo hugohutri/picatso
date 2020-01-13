@@ -1,35 +1,64 @@
 import React, { Component } from "react";
-import "../../styles.css";
-import axios from "../../js/axios.js";
+import { GameContext } from "../GameContext";
+import axios from "../../js/axios";
 
 class LobbyScore extends Component {
-  render() {
-    const idStyle = {
-      fontSize: "12vmin",
-      fontFamily: "Bangers",
-      textShadow: "4px 4px 8px black"
+  constructor(props) {
+    super(props);
+    this.state = {
+      players: []
     };
-    const guideStyle = {
+  }
+
+  static contextType = GameContext;
+
+  async componentDidMount() {
+    const [lobby] = this.context;
+    this.getPlayers(lobby[0].gameid);
+  }
+
+  async getPlayers(gameid) {
+    const { data } = await axios.post("/lobby/players", { info: { gameid } });
+    this.setState({ players: data.players });
+  }
+
+  render() {
+    const playerStyle = {
       fontSize: "4vmin",
       fontFamily: "Bangers",
-      textShadow: "4px 4px 8px black"
+      textShadow: "1vmin 1vmin 2vmin black"
     };
-    const buttonStyle = {
-      fontSize: "60px",
+    const headerStyle = {
+      fontSize: "6vmin",
       fontFamily: "Bangers",
       textShadow: "4px 4px 8px black"
     };
-    const logoStyle = {
-      fontSize: "12vmin",
-      textShadow: "4px 4px 8px black"
+    const boxStyle = {
+      margin: "0"
     };
-    const gameid = this.props.gameid;
+    const players = this.state.players;
     return (
       <div>
         <div className="container row center-align">
-          <div className="col s12 l10 offset-l1 card orange">
-            <div className="col s4 m3 l3">jeee</div>
-            <div className="col s4 m3 l3">jeee2</div>
+          <div className="col s12 m12 l10 offset-l1">
+            <div
+              className="center-align white-text flow-text"
+              style={headerStyle}
+            >
+              Results
+            </div>
+            {players.map(player => (
+              <div className="col s4 m3 l2" style={boxStyle} key={player.name}>
+                <div className="col s10 offset-s1 card black">
+                  <div className="white-text center" style={playerStyle}>
+                    {player.name}
+                  </div>
+                  <div className="white-text center" style={playerStyle}>
+                    {player.points}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
