@@ -10,21 +10,26 @@ class PlayerList extends Component {
     this.players = lobby[0].players;
     const gameid = lobby[0].gameid;
     if(gameid === "") return;
+    this.getPlayers(gameid);
 
     try {
       setInterval(async () => {
-        const { data } = await axios.post("/lobby/players", { info: {gameid} } );
-        const [players] = [data.players];
-        const [,setLobby] = this.context;
-        setLobby([{
-          gameid: lobby[0].gameid,
-          mode: lobby[0].mode,
-          players: data.players
-        }]);
+        this.getPlayers(gameid);
       }, 2000);
     } catch(e) {
       console.log(e);
     }
+  }
+
+  async getPlayers(gameid) {
+    const { data } = await axios.post("/lobby/players", { info: {gameid} } );
+    const [lobby,setLobby] = this.context;
+    setLobby([{
+      gameid: lobby[0].gameid,
+      mode: lobby[0].mode,
+      players: data.players,
+      questions: lobby[0].questions
+    }]);
   }
 
   render() { 
@@ -46,8 +51,8 @@ class PlayerList extends Component {
           <div className="container row center-align">
             <div className="col s12 l10 offset-l1 card black">
               {players && players.map((player) => 
-                <div className="col s4 m3 l3" key={player}>
-                  <div className="white-text center" style={playerStyle}>{player}</div>
+                <div className="col s4 m3 l3" key={player.name}>
+                  <div className="white-text center" style={playerStyle}>{player.name}</div>
                 </div>
               )}
             </div>

@@ -25,6 +25,10 @@ class Timer extends Component {
         };
         return obj;
     }
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
     
     componentDidMount() {
         let timeLeftVar = this.secondsToTime(this.state.seconds);

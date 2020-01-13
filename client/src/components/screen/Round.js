@@ -14,6 +14,7 @@ class Round extends Component {
         this.questions = ["It's over Anakin, I have the _____","My name is not ____","What is the best way to spend night?"];
         this.timers = [3, 4, 4];
         this.state = {round: 0};
+        this.questions = [];
         this.timerStopped = this.timerStopped.bind(this);
         /*
         [
@@ -39,44 +40,60 @@ class Round extends Component {
     }
 
     state = {
-        content: [],
+        content: null,
     }
 
     static contextType = GameContext;
 
-    timerStopped() {
-        console.log(this.state.round);
+    async timerStopped() {
+        if(this.state.round === 3) {
+            this.props.updateLobbyState("show");
+            const [lobby] = this.context;
+            const info =   {
+                gameid: lobby[0].gameid,
+                mode: "show"
+            };
+            await axios.post("/lobby/setmode", { info: info } );
+            return;
+        }
         this.setState({ round: this.state.round+1 });
+        if(this.state.round < 3) {
+            this.getContent();
+        }
     }
 
     async componentDidMount() {
-        console.log(":DDDDDDDDDD");
-        const { data } = await axios.get( "/lobby/content" );
-        console.log(data);
+        this.getContent();
+    }
+
+    async getContent() {
+        const [lobby] = this.context;
+        const gameid = lobby[0].gameid;
+        const info = { gameid: gameid, round: this.state.round}
+        const { data } = await axios.post( "/lobby/content", { info: info} );
         this.setState({content: data.content});
+        
+        // Send questions to the context
+        this.questions.push(data.content.question);
+        const [,setLobby] = this.context;
+        setLobby([{
+          gameid: lobby[0].gameid,
+          mode: lobby[0].mode,
+          players: lobby[0].players,
+          questions: this.questions,
+        }]);
     }
 
     render() { 
         const round = this.state.round;
-
-        const guideStyle = {
-            fontSize: "3vmin",
-            fontFamily: "Bangers",
-            textShadow: "4px 4px 8px black"
-        }
-        const questionStyle = {
-            fontSize: "4vmin",
-            fontFamily: "Bangers",
-            textShadow: "4px 4px 8px black"
-        }
-
+        
         // Render questions
         if(round < 3 && this.state.content) {
             const content = this.state.content;
-            const guide     = content[round].guide;
-            const question  = content[round].question;
-            const url       = content[round].url;
-            const timer     = content[round].timer;
+            const guide     = content.guide;
+            const question  = content.question;
+            const url       = content.url;
+            const timer     = content.timer;
             return ( 
                 <div>
                     {round < 3 && (
@@ -101,7 +118,7 @@ class Round extends Component {
             );
         }
 
-        // 
+        // else
         return (
             <div>
             </div>
