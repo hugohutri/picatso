@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import "../../styles.css";
 
-import axios from "../../js/axios"
-import {UserContext} from "./UserContext"
+import axios from "../../js/axios";
+import { UserContext } from "./UserContext";
 
 //Odotusruutu
 class RoundInProgress extends Component {
@@ -16,25 +16,27 @@ class RoundInProgress extends Component {
   static contextType = UserContext;
 
   async componentDidMount() {
-    const [user,] = this.context;
+    const [user] = this.context;
     const gameid = user.gameid;
-    if(gameid === "") return;
+    if (gameid === "") return;
     try {
       this.backendInterval = setInterval(async () => {
-        const { data } = await axios.post("/lobby/getmode", { info: {gameid} } );
-        const [user,setUser] = this.context;
+        const { data } = await axios.post("/lobby/getmode", {
+          info: { gameid }
+        });
+        const [user, setUser] = this.context;
         setUser({
           name: user.name,
           gameid: user.gameid,
-          question: '',
-          answer: '',
+          question: "",
+          answer: "",
           mode: data.mode
         });
-        if(data.mode === "answer") {
-          this.setState({ goToNextPage: true});
+        if (data.mode === "answer") {
+          this.setState({ goToNextPage: true });
         }
       }, 1000);
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
   }
@@ -44,8 +46,8 @@ class RoundInProgress extends Component {
   }
 
   render() {
-    if(this.state.goToNextPage) return <Redirect to='/answer' />
-    
+    if (this.state.goToNextPage) return <Redirect to="/answer" />;
+
     const headerStyle = {
       fontSize: "6vmin",
       fontFamily: "Bangers"
@@ -55,7 +57,7 @@ class RoundInProgress extends Component {
       <div className="login">
         <div className="row">
           <div className="col card s10 offset-s1 m6 offset-m3 center-align">
-            <p/>
+            <p />
             <i className="material-icons black-text" style={logoStyle}>
               desktop_windows
             </i>

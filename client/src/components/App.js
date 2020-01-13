@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Test from "./Test";
 import Mobile from "./Mobile";
 import Screen from "./Screen";
-import {GameProvider} from "./GameContext";
+import LobbyScore from "./screen/LobbyScore";
+import { GameProvider } from "./GameContext";
 
 import "../styles.css";
 import "../css/materialize.css";
@@ -15,11 +16,11 @@ function App() {
     <GameProvider>
       <Router>
         <div className="app">
-            <Switch>
-              <Route path="/lobby" exact component={Screen} />
-              <Route path="/test" exact component={Test} />
-              <Route path="/" component={Mobile} />
-            </Switch>
+          <Switch>
+            <Route path="/lobby" exact component={Screen} />
+            <Route path="/test" exact component={LobbyScore} />
+            <Route path="/" component={Mobile} />
+          </Switch>
         </div>
       </Router>
     </GameProvider>

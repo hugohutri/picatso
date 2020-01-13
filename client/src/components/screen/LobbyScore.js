@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../../styles.css";
 import axios from "../../js/axios.js";
 
-class LobbyWaiting extends Component {
+class LobbyScore extends Component {
   constructor(props) {
     super(props);
     this.onClickStart = this.onClickStart.bind(this);
@@ -43,28 +43,6 @@ class LobbyWaiting extends Component {
     const gameid = this.props.gameid;
     return (
       <div>
-        <div>
-          <div className="col s6 offset-s3">
-            <div
-              className="center-align white-text flow-text"
-              style={guideStyle}
-            >
-              Go to picatso.fi <br /> on your mobile device to join in <br />{" "}
-              using room code
-            </div>
-            <div className="center-align white-text flow-text" style={idStyle}>
-              {gameid || "loading..."}
-            </div>
-          </div>
-          <div className="col s3">
-            <i
-              className="material-icons white-text hide-on-small-and-down"
-              style={logoStyle}
-            >
-              phone_android
-            </i>
-          </div>
-        </div>
         <div className="container section center-align">
           <div className="col s12">
             <div
@@ -81,4 +59,4 @@ class LobbyWaiting extends Component {
   }
 }
 
-export default LobbyWaiting;
+export default LobbyScore;

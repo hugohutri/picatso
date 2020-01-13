@@ -12,7 +12,7 @@ function Vote({ text }) {
       style={buttonStyle}
     >
       <div className="black-text">
-        <div className="word-break black-text">{text}</div>
+        <div className="word-break white-text">{text}</div>
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import "../../styles.css";
 
-import axios from "../../js/axios"
-import {UserContext} from "./UserContext"
+import axios from "../../js/axios";
+import { UserContext } from "./UserContext";
 
 // Waiting for the game to start
 class Waiting extends Component {
@@ -18,11 +18,13 @@ class Waiting extends Component {
   async componentDidMount() {
     const [user] = this.context;
     const gameid = user.gameid;
-    if(gameid === "") return;
+    if (gameid === "") return;
     try {
       this.backendInterval = setInterval(async () => {
-        const { data } = await axios.post("/lobby/getmode", { info: {gameid} } );
-        const [user,setUser] = this.context;
+        const { data } = await axios.post("/lobby/getmode", {
+          info: { gameid }
+        });
+        const [user, setUser] = this.context;
         setUser({
           name: user.name,
           gameid: user.gameid,
@@ -30,21 +32,21 @@ class Waiting extends Component {
           answer: user.question,
           mode: data.mode
         });
-        if(data.mode === "tutorial") {
-          this.setState({ goToNextPage: true});
+        if (data.mode === "tutorial") {
+          this.setState({ goToNextPage: true });
         }
       }, 1000);
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
   }
 
   componentWillUnmount() {
-    if(this.backendInterval) clearInterval(this.backendInterval);
+    if (this.backendInterval) clearInterval(this.backendInterval);
   }
 
   render() {
-    if(this.state.goToNextPage) return <Redirect to='/round' />
+    if (this.state.goToNextPage) return <Redirect to="/round" />;
 
     const headerStyle = {
       fontSize: "6vmin",
@@ -56,7 +58,7 @@ class Waiting extends Component {
       <div className="login">
         <div className="row">
           <div className="col card s10 offset-s1 m6 offset-m3 center-align">
-            <p/>
+            <p />
             <i className="material-icons black-text" style={logoStyle}>
               person
             </i>
