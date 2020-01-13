@@ -28,12 +28,14 @@ class Show extends Component {
   static contextType = GameContext;
 
   async timerStopped() {
+    let info = null;
+    const [lobby] = this.context;
     if (this.p_idx >= this.p_count && this.q_idx >= this.q_count) {
       // Go to next screen
       console.log("Go to next screen");
       this.props.updateLobbyState("result");
-      const [lobby] = this.context;
-      const info = {
+
+      info = {
         gameid: lobby[0].gameid,
         mode: "result"
       };
@@ -41,16 +43,22 @@ class Show extends Component {
       return;
     }
     if (this.state.displayVoting) {
+      console.log("AIKA Katttoa kyssäri");
+      info = {
+        gameid: lobby[0].gameid,
+        mode: "show"
+      };
+      await axios.post("/lobby/setmode", { info: info });
       this.setState({
         displayQuestion: true,
         displayVoting: false
       });
-      const [lobby] = this.context;
-      const info = {
+      info = {
         gameid: lobby[0].gameid,
         round: this.q_idx
       };
-      //await axios.post("/lobby/setround", { info: info });
+      console.log("round: " + this.q_idx);
+      await axios.post("/lobby/setround", { info: info });
       return;
     }
     this.p_idx += 1;
@@ -58,6 +66,16 @@ class Show extends Component {
       this.p_idx = -1;
       this.q_idx += 1;
       this.setState({ displayVoting: true });
+      console.log("AIKA ÄÄNESTÄÄ");
+      info = {
+        gameid: lobby[0].gameid,
+        mode: "vote"
+      };
+      const question = this.state.questions[this.q_idx];
+      this.setState({
+        question: question
+      });
+      await axios.post("/lobby/setmode", { info: info });
       return;
     }
     if (this.q_idx >= this.q_count) {
@@ -129,7 +147,7 @@ class Show extends Component {
             The question was
           </div>
           <Question url="" guide="" question={this.state.question}></Question>
-          <Timer seconds="7" timerStopped={this.timerStopped} />
+          <Timer seconds="3" timerStopped={this.timerStopped} />
         </div>
       );
     }
@@ -149,7 +167,7 @@ class Show extends Component {
               Vote for the best answer with your phone!
             </div>
           </div>
-          <Timer seconds="10" timerStopped={this.timerStopped} />
+          <Timer seconds="6" timerStopped={this.timerStopped} />
         </div>
       );
     }

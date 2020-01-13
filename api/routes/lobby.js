@@ -70,26 +70,26 @@ const content = [
     guide: "Fill in the plank",
     question: "It's over anakin I have the ___________! ",
     url: "",
-    timer: "10"
+    timer: "5"
   },
   {
     guide: "Answer something funny",
     question: "If Finland had area 51, what would be its biggest secret?",
     url: "",
-    timer: "10"
+    timer: "5"
   },
   {
     guide: "Fill in the plank",
     question: "What's the real reason for Mona Lisa's smile?",
     url: "",
-    timer: "10"
+    timer: "5"
   },
   {
     guide: "Answer something funny",
     question:
       "People say I have small hands, but I make up for it with my ______.",
     url: "",
-    timer: "10"
+    timer: "5"
   }
 ];
 
@@ -262,7 +262,7 @@ router.post("/setmode/", (req, res, next) => {
 
   lobbySetMode(gameid, mode);
 
-  res.status(200);
+  res.status(200).json({ mode: mode });
 });
 
 // Request to set round of the lobby
@@ -273,7 +273,7 @@ router.post("/setround/", (req, res, next) => {
 
   lobbySetRound(gameid, round);
 
-  res.status(200);
+  res.status(200).json({ round: round });
 });
 
 // Request to submit an answer for a player
