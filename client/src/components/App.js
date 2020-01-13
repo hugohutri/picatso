@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Test from "./Test";
 import Mobile from "./Mobile";
 import Screen from "./Screen";
-import {GameProvider} from "./GameContext";
+import { GameProvider } from "./GameContext";
+import { UserProvider } from "./mobile/UserContext";
 
 import "../styles.css";
 import "../css/materialize.css";
@@ -13,15 +14,17 @@ import "../css/materialize.css";
 function App() {
   return (
     <GameProvider>
-      <Router>
-        <div className="app">
+      <UserProvider>
+        <Router>
+          <div className="app">
             <Switch>
               <Route path="/lobby" exact component={Screen} />
               <Route path="/test" exact component={Test} />
               <Route path="/" component={Mobile} />
             </Switch>
-        </div>
-      </Router>
+          </div>
+        </Router>
+      </UserProvider>
     </GameProvider>
   );
 }
