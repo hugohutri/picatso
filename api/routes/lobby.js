@@ -70,25 +70,25 @@ const content = [
       guide: "Fill in the plank",
       question: "It's over anakin I have the ___________! ",
       url: "",//www.flickr.com/photos/44214515@N06/22155578112",
-      timer: "3"
+      timer: "4"
   },
   {
       guide: "Answer something funny",
       question: "If Finland had area 51, what would be its biggest secret?",
       url: "",//https://pixabay.com/fi/photos/mies-secret-kasvot-salaper%C3%A4inen-4393964/",
-      timer: "3"
+      timer: "4"
   },
   {
       guide: "Fill in the plank",
       question: "What's the real reason for Mona Lisa's smile?",
       url: "",//https://fi.wikipedia.org/wiki/Tiedosto:Life_of_George_Washington,_Deathbed.jpg",
-      timer: "3"
+      timer: "4"
   },
   {
       guide: "Answer something funny",
       question: "People say I have small hands, but I make up for it with my ______.",
       url: "",
-      timer: "3"
+      timer: "4"
   }
 ];
 

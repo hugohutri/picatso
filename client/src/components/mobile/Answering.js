@@ -10,6 +10,7 @@ class Answering extends Component {
   constructor(props) {
     super(props);
     this.backendInterval = null;
+    this.oldquestion = "";
     this.state = {
       question: "",
       waitForNext: false,
@@ -27,23 +28,44 @@ class Answering extends Component {
     this.getContent();
   }
 
+  checkIfPlayerDidSubmit(question) {
+    if(question !== this.state.question // The question is new
+      && this.oldquestion !== ""        // The new question is not the first
+      && !this.state.waitForNext        // Player did not answer to the previous question
+      ) {
+      this.oldquestion = question;
+      //Submit empty!
+      this.answer = "-";
+      this.sendAnswer();
+      this.setState({ waitForNext: false});
+    }
+  }
+
   async getContent() {
     const [user] = this.context;
     const gameid = user.gameid;
     const info = { gameid: gameid }
     const { data } = await axios.post( "/lobby/mobilecontent", { info: info} );
-    this.setState({question: data.content.question});
+    const question = data.content.question;
+    this.checkIfPlayerDidSubmit(question);
+    this.oldquestion = question;
+    this.setState({question: question});
     try {
       this.backendInterval = setInterval(async () => {
         const [user] = this.context;
         const gameid = user.gameid;
         const info = { gameid: gameid }
         const { data } = await axios.post( "/lobby/mobilecontent", { info: info} );
+
+        const question = data.content.question;
+        this.checkIfPlayerDidSubmit(question);
+        
         if(data.round > 2) {
           this.setState({goToNextPage: true});
-        } else if(data.content.question !== this.state.question) {
+        } else if(question !== this.state.question) {
           this.setState({ waitForNext: false});
-          this.setState({ question: data.content.question });
+          this.setState({ question: question });
+          this.oldquestion = question;
         }
       }, 1000);
     } catch(e) {
@@ -67,12 +89,12 @@ class Answering extends Component {
     };
 
     await axios.post("/lobby/submitanswer", { info: info });
-    this.setState({ waitForNext: true});
   }
 
   onClickSubmit(event) {
     event.preventDefault();
     this.sendAnswer();
+    this.setState({ waitForNext: true});
   }
 
   // Update the answer variable when something is changed on the field

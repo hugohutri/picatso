@@ -71,7 +71,6 @@ class Show extends Component {
     }
 
     async getAnswers() {
-        console.log("getAnswers")
         const [lobby] = this.context;
         /*
         const gameid = lobby[0].gameid;
