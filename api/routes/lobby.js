@@ -99,15 +99,13 @@ const content = [
     guide: "Answer something funny",
     question: "What's the real reason behind global warming?",
     url: "",
-    //kitka aukkioppilaiden aseen hinkkauksesta
-    timer: "25"
+    timer: "5"
   },
   {
     guide: "Answer something funny",
     question: "Best pickup line at a Minecraft convention.",
     url: "",
-    //I heard they added Love in the last patch and only thing missing from my recipe is you; If you were creeper I wouldn't turn around if you snuck up behind me.
-    timer: "25"
+    timer: "5"
   },
   {
     guide: "Fill in the plank",
@@ -166,16 +164,14 @@ const content = [
     guide: "Answer something funny",
     question: "What pet did Pope ask to get him for his birthday?",
     url: "",
-    //Timmy, batmobile, Ariana Grande's nail clippings, some coke and not the cheap shit
-    timer: "25"
+    timer: "5"
   },
   {
     guide: "Answer something funny",
     question:
       "What are the real first words said when Apollo 11 landed on the moon?",
     url: "",
-    //Aaaaannd CUT!, is that a smuf?, Neil has to lick it first,
-    timer: "25"
+    timer: "5"
   }
 ];
 
@@ -348,7 +344,7 @@ router.post("/setmode/", (req, res, next) => {
 
   lobbySetMode(gameid, mode);
 
-  res.status(200);
+  res.status(200).json({ mode: mode });
 });
 
 // Request to set round of the lobby
@@ -359,7 +355,7 @@ router.post("/setround/", (req, res, next) => {
 
   lobbySetRound(gameid, round);
 
-  res.status(200);
+  res.status(200).json({ round: round });
 });
 
 // Request to submit an answer for a player
