@@ -92,8 +92,7 @@ const content = [
     question:
       "People say I have small hands, but I make up for it with _________.",
     url: "",
-    //enormous ego, shooting missiles into Iran, an even smaller penis,
-    timer: "5"
+    timer: "20"
   },
   {
     guide: "Answer something funny",
@@ -105,7 +104,7 @@ const content = [
     guide: "Answer something funny",
     question: "Best pickup line at a Minecraft convention.",
     url: "",
-    timer: "5"
+    timer: "20"
   },
   {
     guide: "Fill in the plank",
@@ -164,14 +163,14 @@ const content = [
     guide: "Answer something funny",
     question: "What pet did Pope ask to get him for his birthday?",
     url: "",
-    timer: "5"
+    timer: "20"
   },
   {
     guide: "Answer something funny",
     question:
       "What are the real first words said when Apollo 11 landed on the moon?",
     url: "",
-    timer: "5"
+    timer: "20"
   }
 ];
 
@@ -226,6 +225,22 @@ function addAnswer(id, username, answer) {
         if (players[k].name === username) {
           // Store the answer
           lobbies[i].players[k].answers.push(answer);
+        }
+      }
+    }
+  }
+}
+
+// Join to the lobby
+function addPoints(id, choice) {
+  for (var i = 0, len = lobbies.length; i < len; i++) {
+    if (lobbies[i].id === id) {
+      // Loop players
+      const players = lobbies[i].players;
+      for (var k = 0, len2 = players.length; k < len2; k++) {
+        if (players[k].name === choice) {
+          // add points
+          lobbies[i].players[k].points += 100;
         }
       }
     }
@@ -369,6 +384,17 @@ router.post("/submitanswer/", (req, res, next) => {
   addAnswer(gameid, username, answer);
 
   res.status(200).json({ answer });
+});
+
+// Request to set state of the lobby
+router.post("/vote/", (req, res, next) => {
+  const info = req.body.info;
+  const gameid = info.gameid.toString();
+  const choice = info.choice;
+
+  addPoints(gameid, choice);
+
+  res.status(200).json({ choice: choice });
 });
 
 module.exports = router;
