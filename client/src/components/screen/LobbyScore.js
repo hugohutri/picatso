@@ -3,23 +3,6 @@ import "../../styles.css";
 import axios from "../../js/axios.js";
 
 class LobbyScore extends Component {
-  constructor(props) {
-    super(props);
-    this.onClickStart = this.onClickStart.bind(this);
-  }
-
-  async onClickStart() {
-    console.log("onClickStart called");
-    //const [lobby,setLobby] = this.context;
-    //setLobby([{lobby}]);
-    this.props.updateLobbyState("tutorial");
-    const info = {
-      gameid: this.props.gameid,
-      mode: "tutorial"
-    };
-    await axios.post("/lobby/setmode", { info: info });
-  }
-
   render() {
     const idStyle = {
       fontSize: "12vmin",
@@ -43,15 +26,10 @@ class LobbyScore extends Component {
     const gameid = this.props.gameid;
     return (
       <div>
-        <div className="container section center-align">
-          <div className="col s12">
-            <div
-              className="btn-large white-text center black center"
-              style={buttonStyle}
-              onClick={this.onClickStart}
-            >
-              Play
-            </div>
+        <div className="container row center-align">
+          <div className="col s12 l10 offset-l1 card orange">
+            <div className="col s4 m3 l3">jeee</div>
+            <div className="col s4 m3 l3">jeee2</div>
           </div>
         </div>
       </div>

@@ -11,8 +11,8 @@ class Round extends Component {
   constructor(props) {
     super(props);
     this.guides = [
-      "Fill in the plank!",
-      "Fill in the plank!",
+      "Fill in the blank!",
+      "Fill in the blank!",
       "Answer the question"
     ];
     this.questions = [
