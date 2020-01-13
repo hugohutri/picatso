@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import {UserProvider} from "./mobile/UserContext"
+import { UserProvider } from "./mobile/UserContext";
 import Nav from "./Nav";
 import MainMenu from "./mobile/MainMenu";
 import Waiting from "./mobile/Waiting";
@@ -43,11 +43,11 @@ class Mobile extends Component {
             <div style={backgroundStyle}>
               <div className="window container">
                 <Switch>
-                  <Route path="/" exact           component={ MainMenu } />
-                  <Route path="/wait"             component={ Waiting } />
-                  <Route path='/round'            component={ RoundInProgress } />
-                  <Route path='/answer'           component={ Answering } />
-                  <Route path='/vote'             component={ Voting } />
+                  <Route path="/" exact component={MainMenu} />
+                  <Route path="/wait" component={Waiting} />
+                  <Route path="/round" component={RoundInProgress} />
+                  <Route path="/answer" component={Answering} />
+                  <Route path="/vote" component={Voting} />
                 </Switch>
                 <audio
                   id="myaudio"
