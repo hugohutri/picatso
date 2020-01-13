@@ -69,27 +69,113 @@ const content = [
   {
     guide: "Fill in the plank",
     question: "It's over anakin I have the ___________! ",
-    url: "",
-    timer: "10"
+    url: "", //www.flickr.com/photos/44214515@N06/22155578112",
+    //bigger sword, picture of you and palpatine at a (strip club)/(touching each others lightsabers)
+    timer: "25"
   },
   {
     guide: "Answer something funny",
-    question: "If Finland had area 51, what would be its biggest secret?",
-    url: "",
-    timer: "10"
+    question: "If Finland had area 51, what would be kept there?",
+    url: "", //https://pixabay.com/fi/photos/mies-secret-kasvot-salaper%C3%A4inen-4393964/",
+    //terminator Kekkonen, 101% alcohol, proof that Finland exists
+    timer: "25"
+  },
+  {
+    guide: "Answer something funny",
+    question: "What's the real reason for Mona Lisa's smile?",
+    url: "", //https://fi.wikipedia.org/wiki/Tiedosto:Life_of_George_Washington,_Deathbed.jpg",
+    //she's not wearing any pants, holocaust, you would be smiling too if you got paid as much
+    timer: "25"
   },
   {
     guide: "Fill in the plank",
-    question: "What's the real reason for Mona Lisa's smile?",
+    question:
+      "People say I have small hands, but I make up for it with _________.",
     url: "",
-    timer: "10"
+    //enormous ego, shooting missiles into Iran, an even smaller penis,
+    timer: "25"
+  },
+  {
+    guide: "Answer something funny",
+    question: "What's the real reason behind global warming?",
+    url: "",
+    //kitka aukkioppilaiden aseen hinkkauksesta
+    timer: "25"
+  },
+  {
+    guide: "Answer something funny",
+    question: "Best pickup line at a Minecraft convention.",
+    url: "",
+    //I heard they added Love in the last patch and only thing missing from my recipe is you; If you were creeper I wouldn't turn around if you snuck up behind me.
+    timer: "25"
+  },
+  {
+    guide: "Fill in the plank",
+    question:
+      "I don't want to go to sleep, I'm scared of _______ under the bed!",
+    url: "",
+    //the president, GOT season 8 writing team,
+    timer: "25"
+  },
+  {
+    guide: "Fill in the plank",
+    question:
+      "We live in dark times, but someday, ________ will descend from the sky and save us all.",
+    url: "",
+    //microsoft office suite that actually works and installs without conflicts, a robot voiced by Morgan Freeman that narrates your life
+    timer: "25"
+  },
+  {
+    guide: "Fill in the plank",
+    question: "I know, I know... I shouldn't use _________ as my password.",
+    url: "",
+    //hitlerDidNothingWrong69,
+    timer: "25"
   },
   {
     guide: "Answer something funny",
     question:
-      "People say I have small hands, but I make up for it with my ______.",
+      "Worst thing for the doctor to say, right as the patient is going under anesthesia.",
     url: "",
-    timer: "10"
+    //was it the right or the left leg?, I'm gonna need a tasoittava to make it, just dump him with the rest, "Hello, I'm mr. Bean"
+    timer: "25"
+  },
+  {
+    guide: "Answer something funny",
+    question: "Bill Gates' username on Fortnite.",
+    url: "",
+    //PS_CanSuckMy, killMe=GetBanned99, myDadWorksAtEpic42,
+    timer: "25"
+  },
+  {
+    guide: "Fill in the plank",
+    question: "What's something little known about the world of Harry Potter",
+    url: "",
+    //they sniff glue just like the rest of us, in book 8 hagrid killed all the younglings,
+    timer: "25"
+  },
+  {
+    guide: "Fill in the plank",
+    question:
+      "What did I tell you, dear Watson? All it takes to solve a mystery is deductive reasoning and _______.",
+    url: "",
+    //just a little bit of cocaine, for you to shut up,
+    timer: "25"
+  },
+  {
+    guide: "Answer something funny",
+    question: "What pet did Pope ask to get him for his birthday?",
+    url: "",
+    //Timmy, batmobile, Ariana Grande's nail clippings, some coke and not the cheap shit
+    timer: "25"
+  },
+  {
+    guide: "Answer something funny",
+    question:
+      "What are the real first words said when Apollo 11 landed on the moon?",
+    url: "",
+    //Aaaaannd CUT!, is that a smuf?, Neil has to lick it first,
+    timer: "25"
   }
 ];
 
