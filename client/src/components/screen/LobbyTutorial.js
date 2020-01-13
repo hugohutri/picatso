@@ -44,7 +44,7 @@ class LobbyTutorial extends Component {
               className="center-align white-text flow-text"
               style={guideStyle}
             >
-              Game is starting. User your phone to answer the questions!
+              Game is starting. Use your phone to answer the questions!
             </div>
             <div className="center-align">
               <i className="material-icons white-text" style={logoStyle}>

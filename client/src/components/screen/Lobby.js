@@ -72,7 +72,7 @@ class Lobby extends Component {
 
   render() {
     const headerStyle = {
-      fontSize: "14vmin",
+      fontSize: "16vmin",
       fontFamily: "Bangers"
     };
     const [lobby] = this.context;

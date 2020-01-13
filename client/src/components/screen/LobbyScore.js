@@ -4,26 +4,6 @@ import axios from "../../js/axios.js";
 
 class LobbyScore extends Component {
   render() {
-    const idStyle = {
-      fontSize: "12vmin",
-      fontFamily: "Bangers",
-      textShadow: "4px 4px 8px black"
-    };
-    const guideStyle = {
-      fontSize: "4vmin",
-      fontFamily: "Bangers",
-      textShadow: "4px 4px 8px black"
-    };
-    const buttonStyle = {
-      fontSize: "60px",
-      fontFamily: "Bangers",
-      textShadow: "4px 4px 8px black"
-    };
-    const logoStyle = {
-      fontSize: "12vmin",
-      textShadow: "4px 4px 8px black"
-    };
-    const gameid = this.props.gameid;
     return (
       <div>
         <div className="container row center-align">
