@@ -4,6 +4,7 @@ import '../../styles.css';
 import axios from "../../js/axios"
 import Timer from "./Timer"
 import {GameContext} from "../GameContext"
+import Question from "./Question"
 
 class Show extends Component {
     constructor(props) {
@@ -20,6 +21,8 @@ class Show extends Component {
         questions: [],
         answer: "",
         question: "",
+        displayQuestion: true,
+        displayVoting: false
     }
 
     static contextType = GameContext;
@@ -35,10 +38,20 @@ class Show extends Component {
             await axios.post("/lobby/setmode", { info: info } );
             return;
         }
+        if(this.state.displayVoting) {
+            this.setState(
+                { 
+                    displayQuestion: true,
+                    displayVoting: false
+                } );
+                return;
+        }
         this.p_idx += 1;
         if(this.p_idx >= this.p_count) {
-            this.p_idx = 0;
+            this.p_idx = -1;
             this.q_idx += 1;
+            this.setState({ displayVoting: true} );
+            return;
         }
         if(this.q_idx >= this.q_count) {
             return;
@@ -48,7 +61,8 @@ class Show extends Component {
         this.setState(
             {
                 answer: answer,
-                question: question
+                question: question,
+                displayQuestion: false,
             });
     }
 
@@ -83,24 +97,61 @@ class Show extends Component {
     }
 
     render() { 
-        const questionStyle = {
+        const smallStyle = {
             fontSize: "6vmin",
             fontFamily: "Bangers",
             textShadow: "4px 4px 8px black"
         }
-        const answerStyle = {
+        const mediumStyle = {
             fontSize: "10vmin",
             fontFamily: "Bangers",
             textShadow: "4px 4px 8px black"
+        }
+        const largeStyle = {
+            fontSize: "15vmin",
+            fontFamily: "Bangers",
+            textShadow: "4px 4px 8px black"
+        }
+        const logoStyle = { 
+            fontSize: "25vmin",
+            textShadow: "4px 4px 8px black"
+        };
+        if(this.state.displayQuestion) {
+            return (
+                <div>                    
+                    <div className="center-align white-text flow-text" style={largeStyle}>
+                        The question was
+                    </div>
+                    <Question url="" guide="" question={this.state.question}></Question>
+                    <Timer seconds="7" timerStopped={this.timerStopped}/>
+                </div>
+            );
+        }
+        if(this.state.displayVoting) {
+            return ( 
+                <div>
+                    <div className="col s6 offset-s3">
+                        <div className="center-align">
+                            <i className="material-icons white-text" style={logoStyle} >
+                                phone_android
+                            </i>
+                        </div>
+                        <div className="center-align white-text flow-text" style={mediumStyle}>
+                            Vote for the best answer with your phone!
+                        </div>
+                    </div>
+                    <Timer seconds="10" timerStopped={this.timerStopped}/>
+                </div>
+            );
         }
         // Render answers
         return ( 
             <div>
                 <div className="col s6 offset-s3">
-                    <div className="center-align white-text flow-text" style={questionStyle}>
+                    <div className="center-align white-text flow-text" style={smallStyle}>
                         {this.state.question}
                     </div>
-                    <div className="center-align white-text flow-text" style={answerStyle}>
+                    <div className="center-align white-text flow-text" style={mediumStyle}>
                         {this.state.answer}
                     </div>
                     <div className="center-align">
