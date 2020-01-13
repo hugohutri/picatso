@@ -7,7 +7,7 @@ export const UserContext = createContext();
 export const UserProvider = props => {
   const [user, setUser] = useState({
     name: "",
-    gameid: "1234",
+    gameid: "",
     question: "",
     answer: "",
     mode: ""
