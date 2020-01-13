@@ -34,6 +34,12 @@ class RoundInProgress extends Component {
         });
         if (data.mode === "answer") {
           this.setState({ goToNextPage: true });
+<<<<<<< HEAD
+=======
+        }
+        if (data.mode === "ewtre") {
+          this.setState({ goToNextPage: true });
+>>>>>>> master
         }
       }, 1000);
     } catch (e) {
@@ -62,7 +68,7 @@ class RoundInProgress extends Component {
               desktop_windows
             </i>
             <div className="center-align flow-text" style={headerStyle}>
-              Round is in progress. Look at the main screen!
+              Look at the main screen!
             </div>
             <div className="row">
               <form className="col s12">

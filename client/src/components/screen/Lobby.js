@@ -5,7 +5,11 @@ import PlayerList from "./PlayerList";
 import { GameContext } from "../GameContext";
 import LobbyWaiting from "./LobbyWaiting";
 import LobbyTutorial from "./LobbyTutorial";
+<<<<<<< HEAD
 import Round from "./Round";
+=======
+import LobbyRound from "./LobbyRound";
+>>>>>>> master
 import Show from "./Show";
 
 import axios from "../../js/axios";
@@ -94,7 +98,11 @@ class Lobby extends Component {
             <LobbyTutorial updateLobbyState={this.updateLobbyState} />
           )}
           {mode === "round" && (
+<<<<<<< HEAD
             <Round updateLobbyState={this.updateLobbyState} />
+=======
+            <LobbyRound updateLobbyState={this.updateLobbyState} />
+>>>>>>> master
           )}
           {mode === "show" && <Show updateLobbyState={this.updateLobbyState} />}
         </div>
@@ -103,4 +111,8 @@ class Lobby extends Component {
     );
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 export default Lobby;

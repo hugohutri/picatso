@@ -28,12 +28,14 @@ class Show extends Component {
   static contextType = GameContext;
 
   async timerStopped() {
-    if (false) {
-      this.props.updateLobbyState("show");
+    if (this.p_idx >= this.p_count && this.q_idx >= this.q_count) {
+      // Go to next screen
+      console.log("Go to next screen");
+      this.props.updateLobbyState("result");
       const [lobby] = this.context;
       const info = {
         gameid: lobby[0].gameid,
-        mode: "show"
+        mode: "result"
       };
       await axios.post("/lobby/setmode", { info: info });
       return;
@@ -43,6 +45,12 @@ class Show extends Component {
         displayQuestion: true,
         displayVoting: false
       });
+      const [lobby] = this.context;
+      const info = {
+        gameid: lobby[0].gameid,
+        round: this.q_idx
+      };
+      //await axios.post("/lobby/setround", { info: info });
       return;
     }
     this.p_idx += 1;

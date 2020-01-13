@@ -69,27 +69,27 @@ const content = [
   {
     guide: "Fill in the plank",
     question: "It's over anakin I have the ___________! ",
-    url: "", //www.flickr.com/photos/44214515@N06/22155578112",
-    timer: "25"
+    url: "",
+    timer: "10"
   },
   {
     guide: "Answer something funny",
     question: "If Finland had area 51, what would be its biggest secret?",
-    url: "", //https://pixabay.com/fi/photos/mies-secret-kasvot-salaper%C3%A4inen-4393964/",
-    timer: "25"
+    url: "",
+    timer: "10"
   },
   {
     guide: "Fill in the plank",
     question: "What's the real reason for Mona Lisa's smile?",
-    url: "", //https://fi.wikipedia.org/wiki/Tiedosto:Life_of_George_Washington,_Deathbed.jpg",
-    timer: "25"
+    url: "",
+    timer: "10"
   },
   {
     guide: "Answer something funny",
     question:
       "People say I have small hands, but I make up for it with my ______.",
     url: "",
-    timer: "25"
+    timer: "10"
   }
 ];
 
@@ -108,6 +108,16 @@ function lobbySetMode(id, mode) {
   for (var i = 0, len = lobbies.length; i < len; i++) {
     if (lobbies[i].id == id) {
       lobbies[i].mode = mode;
+    }
+  }
+  return null;
+}
+
+// Set the round of the lobby
+function lobbySetRound(id, round) {
+  for (var i = 0, len = lobbies.length; i < len; i++) {
+    if (lobbies[i].id == id) {
+      lobbies[i].round = round;
     }
   }
   return null;
@@ -236,6 +246,14 @@ router.post("/getmode/", (req, res, next) => {
   res.status(200).json({ mode: lobby.mode });
 });
 
+// Request to get round of the lobby
+router.post("/getround/", (req, res, next) => {
+  const info = req.body.info;
+  let lobby = findLobby(info.gameid.toString());
+
+  res.status(200).json({ round: lobby.round });
+});
+
 // Request to set state of the lobby
 router.post("/setmode/", (req, res, next) => {
   const info = req.body.info;
@@ -243,6 +261,17 @@ router.post("/setmode/", (req, res, next) => {
   const mode = info.mode;
 
   lobbySetMode(gameid, mode);
+
+  res.status(200);
+});
+
+// Request to set round of the lobby
+router.post("/setround/", (req, res, next) => {
+  const info = req.body.info;
+  const gameid = info.gameid.toString();
+  const round = info.round;
+
+  lobbySetRound(gameid, round);
 
   res.status(200);
 });

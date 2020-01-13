@@ -41,6 +41,28 @@ class Answering extends Component {
     }
   }
 
+  /*
+      const { rounddata } = await axios.post("/lobby/getmode", {info: { gameid }});
+      const [user, setUser] = this.context;
+      setUser({
+        name: user.name,
+        gameid: user.gameid,
+        question: "",
+        answer: "",
+        mode: data.mode
+      });
+      if (data.mode === "answer") {
+        this.setState({ goToNextPage: true });
+      }
+      if (data.mode === "ewtre") {
+        this.setState({ goToNextPage: true });
+      }
+    }, 1000);
+  } catch (e) {
+    console.log(e);
+  }
+  */
+
   async getContent() {
     const [user] = this.context;
     const gameid = user.gameid;
@@ -54,11 +76,11 @@ class Answering extends Component {
       this.backendInterval = setInterval(async () => {
         const [user] = this.context;
         const gameid = user.gameid;
+        this.getMode(gameid);
         const info = { gameid: gameid };
         const { data } = await axios.post("/lobby/mobilecontent", {
           info: info
         });
-
         const question = data.content.question;
         this.checkIfPlayerDidSubmit(question);
 
@@ -72,6 +94,23 @@ class Answering extends Component {
       }, 1000);
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  async getMode(gameid) {
+    const { data } = await axios.post("/lobby/getmode", {
+      info: { gameid }
+    });
+    const [user, setUser] = this.context;
+    setUser({
+      name: user.name,
+      gameid: user.gameid,
+      question: "",
+      answer: "",
+      mode: data.mode
+    });
+    if (data.mode === "show") {
+      this.setState({ goToNextPage: true });
     }
   }
 
@@ -105,7 +144,7 @@ class Answering extends Component {
   }
 
   render() {
-    if (this.state.goToNextPage) return <Redirect to="/" />;
+    if (this.state.goToNextPage) return <Redirect to="/vote" />;
 
     const headerStyle = {
       fontSize: "4vmin",
@@ -170,7 +209,7 @@ class Answering extends Component {
               timer
             </i>
             <div className="center-align flow-text" style={infoStyle}>
-              Wait for the next question!
+              Please wait
             </div>
             <div className="row">
               <form className="col s12">

@@ -10,6 +10,7 @@ import Answering from "./mobile/Answering";
 import Voting from "./mobile/Voting";
 import Background from "../images/background1.png";
 import sound from "./bensound-funnysong.mp3";
+import { UserContext } from "./mobile/UserContext";
 
 // Everything rendered in the mobile will be here
 class Mobile extends Component {
@@ -17,6 +18,8 @@ class Mobile extends Component {
     super(props);
     this.username = "";
   }
+
+  static contextType = UserContext;
 
   setUsername(_username) {
     this.username = _username;
@@ -34,6 +37,8 @@ class Mobile extends Component {
       backgroundImage: "url(" + Background + ")",
       zIndex: "-1000"
     };
+    const [user] = this.context;
+    const props = user;
 
     return (
       <div>
@@ -47,7 +52,10 @@ class Mobile extends Component {
                   <Route path="/wait" component={Waiting} />
                   <Route path="/round" component={RoundInProgress} />
                   <Route path="/answer" component={Answering} />
-                  <Route path="/vote" component={Voting} />
+                  <Route
+                    path="/vote"
+                    render={routeProps => <Voting {...routeProps} {...props} />}
+                  />
                 </Switch>
                 <audio
                   id="myaudio"
