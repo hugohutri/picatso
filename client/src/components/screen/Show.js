@@ -50,7 +50,7 @@ class Show extends Component {
         gameid: lobby[0].gameid,
         round: this.q_idx
       };
-      await axios.post("/lobby/setround", { info: info });
+      //await axios.post("/lobby/setround", { info: info });
       return;
     }
     this.p_idx += 1;

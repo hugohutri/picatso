@@ -1,10 +1,9 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 import "../styles.css";
 
 // Navigation bar at the top of the page
 class Nav extends Component {
-
   render() {
     const headerStyle = {
       fontSize: "6vmin",
@@ -17,7 +16,7 @@ class Nav extends Component {
           <div className="nav-wrapper deep-orange darken-1">
             <div className="nav-wrapper container">
               <div className="center" style={headerStyle}>
-               Picatso
+                Picatso
               </div>
             </div>
           </div>
