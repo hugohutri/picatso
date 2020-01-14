@@ -55,7 +55,10 @@ class PlayerList extends Component {
             {players &&
               players.map(player => (
                 <div className="col s4 m3 l3" key={player.name}>
-                  <div className="white-text center" style={playerStyle}>
+                  <div
+                    className="white-text truncate center"
+                    style={playerStyle}
+                  >
                     {player.name}
                   </div>
                 </div>

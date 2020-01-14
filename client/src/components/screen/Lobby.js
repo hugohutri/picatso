@@ -36,6 +36,15 @@ class Lobby extends Component {
     await axios.post("/lobby/setmode", { info: info });
   }
 
+  componentWillUnmount() {
+    const [lobby] = this.context;
+    const info = {
+      gameid: lobby[0].gameid
+    };
+    axios.post("/lobby/delete", { info: info });
+    console.log("componentWillUnmount");
+  }
+
   // Create new lobby
   async createLobby() {
     //const { data } = await axios.get("/lobby/create");
@@ -74,7 +83,7 @@ class Lobby extends Component {
           <div className="center-align flow-text" style={headerStyle}>
             PICATSO
           </div>
-          {mode === "waiting" && (
+          {mode === "waitings" && (
             <LobbyWaiting
               gameid={gameid}
               updateLobbyState={this.updateLobbyState}
@@ -87,7 +96,7 @@ class Lobby extends Component {
             <LobbyRound updateLobbyState={this.updateLobbyState} />
           )}
           {mode === "show" && <Show updateLobbyState={this.updateLobbyState} />}
-          {mode === "score" && (
+          {mode === "waiting" && (
             <LobbyScore updateLobbyState={this.updateLobbyState} />
           )}
         </div>

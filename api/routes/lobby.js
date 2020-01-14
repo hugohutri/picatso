@@ -179,6 +179,12 @@ const content = [
   }
 ];
 
+function getContent(gameid, round) {
+  const len = content.length;
+  const idx = (gameid + round) % len;
+  return content[idx];
+}
+
 // Find if the lobby exists
 function findLobby(id) {
   for (var i = 0, len = lobbies.length; i < len; i++) {
@@ -225,9 +231,10 @@ function deleteLobby(id) {
     if (lobbies[i].id == id) {
       // Delete lobby
       lobbies.splice(i, 1);
+      return 1;
     }
   }
-  return null;
+  return 0;
 }
 
 // Add answer
@@ -321,6 +328,13 @@ router.get("/create/", (req, res, next) => {
   res.status(200).json({ id: gameid });
 });
 
+// Request to delete a lobby
+router.post("/delete/", (req, res, next) => {
+  const status = deleteLobby(req.body.info.gameid.toString());
+  //res.status( 200 ).json({id: "1234"});
+  res.status(200).json({ status: status });
+});
+
 // Request to get players of the lobby
 router.post("/players/", (req, res, next) => {
   const info = req.body.info;
@@ -336,9 +350,10 @@ router.post("/players/", (req, res, next) => {
 router.post("/content/", (req, res, next) => {
   const info = req.body.info;
   //res.status( 200 ).json({id: "1234"});
-  const data = content[info.round];
+  //const data = content[info.round];
+  const content = getContent(info.gameid, info.round);
   lobbySetRound(info.gameid, info.round);
-  res.status(200).json({ content: data });
+  res.status(200).json({ content: content });
 });
 
 // Request to the questions for mobile
@@ -347,7 +362,7 @@ router.post("/mobilecontent/", (req, res, next) => {
   //res.status( 200 ).json({id: "1234"});
   const lobby = findLobby(info.gameid);
   const round = lobby.round;
-  const data = content[round];
+  const data = getContent(info.gameid, round);
   res.status(200).json({ content: data, round: round });
 });
 

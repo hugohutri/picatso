@@ -24,12 +24,11 @@ class LobbyScore extends Component {
 
   render() {
     const playerStyle = {
-      fontSize: "4vmin",
+      fontSize: "3vmin",
       fontFamily: "Bangers",
       textShadow: "1vmin 1vmin 2vmin black"
     };
     const headerStyle = {
-      fontSize: "6vmin",
       fontFamily: "Bangers",
       textShadow: "4px 4px 8px black"
     };
@@ -39,7 +38,7 @@ class LobbyScore extends Component {
     const players = this.state.players;
     return (
       <div>
-        <div className="container row center-align">
+        <div className="row center-align">
           <div className="col s12 m12 l10 offset-l1">
             <div
               className="center-align white-text flow-text"
@@ -48,9 +47,12 @@ class LobbyScore extends Component {
               Results
             </div>
             {players.map(player => (
-              <div className="col s4 m3 l2" style={boxStyle} key={player.name}>
+              <div className="col s4 m3" style={boxStyle} key={player.name}>
                 <div className="col s10 offset-s1 card black">
-                  <div className="white-text center" style={playerStyle}>
+                  <div
+                    className="white-text truncate flow-text center"
+                    style={playerStyle}
+                  >
                     {player.name}
                   </div>
                   <div className="white-text center" style={playerStyle}>
