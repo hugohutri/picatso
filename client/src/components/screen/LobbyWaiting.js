@@ -49,7 +49,7 @@ class LobbyWaiting extends Component {
               className="center-align white-text flow-text"
               style={guideStyle}
             >
-              Go to picatso.fi <br /> on your mobile device to join in <br />{" "}
+              Go to "{window.location.hostname}:3000"<br /> on your mobile device to join in <br />{" "}
               using room code
             </div>
             <div className="center-align white-text flow-text" style={idStyle}>

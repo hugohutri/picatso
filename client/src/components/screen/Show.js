@@ -30,14 +30,14 @@ class Show extends Component {
   async timerStopped() {
     let info = null;
     const [lobby] = this.context;
-    if (this.p_idx >= this.p_count && this.q_idx >= this.q_count) {
+    if (this.q_idx >= 3) {
       // Go to next screen
       console.log("Go to next screen");
-      this.props.updateLobbyState("result");
+      this.props.updateLobbyState("score");
 
       info = {
         gameid: lobby[0].gameid,
-        mode: "result"
+        mode: "score"
       };
       await axios.post("/lobby/setmode", { info: info });
       return;
@@ -132,12 +132,12 @@ class Show extends Component {
       textShadow: "4px 4px 8px black"
     };
     const largeStyle = {
-      fontSize: "15vmin",
+      fontSize: "12vmin",
       fontFamily: "Bangers",
       textShadow: "4px 4px 8px black"
     };
     const logoStyle = {
-      fontSize: "25vmin",
+      fontSize: "20vmin",
       textShadow: "4px 4px 8px black"
     };
     if (this.state.displayQuestion) {
@@ -147,7 +147,7 @@ class Show extends Component {
             The question was
           </div>
           <Question url="" guide="" question={this.state.question}></Question>
-          <Timer seconds="3" timerStopped={this.timerStopped} />
+          <Timer seconds="7" timerStopped={this.timerStopped} />
         </div>
       );
     }
@@ -167,7 +167,7 @@ class Show extends Component {
               Vote for the best answer with your phone!
             </div>
           </div>
-          <Timer seconds="6" timerStopped={this.timerStopped} />
+          <Timer seconds="10" timerStopped={this.timerStopped} />
         </div>
       );
     }

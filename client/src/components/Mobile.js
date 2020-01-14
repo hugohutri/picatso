@@ -8,6 +8,7 @@ import Waiting from "./mobile/Waiting";
 import RoundInProgress from "./mobile/RoundInProgress";
 import Answering from "./mobile/Answering";
 import Voting from "./mobile/Voting";
+import Score from "./mobile/Score";
 import Background from "../images/background1.png";
 import sound from "./bensound-funnysong.mp3";
 import { UserContext } from "./mobile/UserContext";
@@ -56,6 +57,7 @@ class Mobile extends Component {
                     path="/vote"
                     render={routeProps => <Voting {...routeProps} {...props} />}
                   />
+                  <Route path="/score" component={Score} />
                 </Switch>
                 <audio
                   id="myaudio"

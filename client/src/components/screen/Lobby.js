@@ -6,6 +6,7 @@ import { GameContext } from "../GameContext";
 import LobbyWaiting from "./LobbyWaiting";
 import LobbyTutorial from "./LobbyTutorial";
 import LobbyRound from "./LobbyRound";
+import LobbyScore from "./LobbyScore";
 import Show from "./Show";
 
 import axios from "../../js/axios";
@@ -35,27 +36,25 @@ class Lobby extends Component {
     await axios.post("/lobby/setmode", { info: info });
   }
 
+  componentWillUnmount() {
+    const [lobby] = this.context;
+    const info = {
+      gameid: lobby[0].gameid
+    };
+    axios.post("/lobby/delete", { info: info });
+    console.log("componentWillUnmount");
+  }
+
   // Create new lobby
   async createLobby() {
-    /* Uncomment this to create lobbies!!!
-        const { data } = await axios.get( "/lobby/create");
-        if(data === null) return;
-        const [,setLobby] = this.context;
-        setLobby([{gameid: data.id}]);
-        */
+    const { data } = await axios.get("/lobby/create");
+    if (data === null) return;
+
     const [lobby, setLobby] = this.context;
-    /*
-        setLobby([{gameid: 1234}]);
-        this.setState(() => ({
-            gameid: 1234,
-            mode: lobby[0].mode,
-            players: lobby[0].players,
-            questions: lobby[0].questions
-        }))
-        */
+
     setLobby([
       {
-        gameid: 1234,
+        gameid: data.id,
         mode: lobby[0].mode,
         players: lobby[0].players,
         questions: [lobby[0].questions]
@@ -97,6 +96,9 @@ class Lobby extends Component {
             <LobbyRound updateLobbyState={this.updateLobbyState} />
           )}
           {mode === "show" && <Show updateLobbyState={this.updateLobbyState} />}
+          {mode === "score" && (
+            <LobbyScore updateLobbyState={this.updateLobbyState} />
+          )}
         </div>
         {gameid && <PlayerList gameid={gameid} />}
       </div>
