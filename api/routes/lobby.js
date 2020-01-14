@@ -21,7 +21,7 @@ const lobbies = [
 const lobbies = [
   {
     id: "1234",
-    players: [
+    players: [], /*[
       {
         name: "jappe",
         points: 0,
@@ -37,7 +37,7 @@ const lobbies = [
         points: 0,
         answers: ["hat", "sisäänkäynti", "react kurssi"]
       }
-    ],
+    ],*/
     mode: "waiting",
     round: 0
   },
@@ -340,7 +340,7 @@ router.post("/players/", (req, res, next) => {
   const info = req.body.info;
   let lobby = findLobby(info.gameid.toString());
   if (lobby === null) {
-    players = "error";
+    players = null;
     res.status(200).json({ players: players });
   }
   res.status(200).json({ players: lobby.players });

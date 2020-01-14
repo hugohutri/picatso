@@ -119,6 +119,11 @@ class MainMenu extends Component {
               </div>
             </div>
           </div>
+          <div className="row">
+            <a href="/lobby" className="col s12 center"  >
+              <div className="white-text"><u>Create a new lobby</u></div>
+            </a>
+          </div>
         </div>
       </div>
     );

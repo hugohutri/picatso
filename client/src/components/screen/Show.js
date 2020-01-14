@@ -167,7 +167,7 @@ class Show extends Component {
               Vote for the best answer with your phone!
             </div>
           </div>
-          <Timer seconds="6" timerStopped={this.timerStopped} />
+          <Timer seconds="10" timerStopped={this.timerStopped} />
         </div>
       );
     }

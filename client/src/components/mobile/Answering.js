@@ -18,9 +18,14 @@ class Answering extends Component {
     };
     this.answer = "";
     this.onClickSubmit = this.onClickSubmit.bind(this);
+    this.clearInput = this.clearInput.bind(this);
     this.onChangeAnswer = this.onChangeAnswer.bind(this);
   }
 
+  clearInput() {
+    this.inputTitle.value = "";
+    this.inputEntry.value = "";
+  }
   static contextType = UserContext;
 
   componentDidMount() {
@@ -170,6 +175,7 @@ class Answering extends Component {
                   className="col s12"
                   onChange={this.onChangeAnswer}
                   onSubmit={this.onClickSubmit}
+                  ref={el => this.inputField = el}
                 >
                   <div className="row">
                     <div className="input-field col s12">

@@ -19,7 +19,9 @@ class LobbyScore extends Component {
 
   async getPlayers(gameid) {
     const { data } = await axios.post("/lobby/players", { info: { gameid } });
-    this.setState({ players: data.players });
+    let players = data.players;
+    players.sort(function(a, b){return a.points - b.points});
+    this.setState({ players: players });
   }
 
   render() {
@@ -29,6 +31,7 @@ class LobbyScore extends Component {
       textShadow: "1vmin 1vmin 2vmin black"
     };
     const headerStyle = {
+      fontSize: "5vmin",
       fontFamily: "Bangers",
       textShadow: "4px 4px 8px black"
     };

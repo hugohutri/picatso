@@ -47,7 +47,7 @@ class PlayerList extends Component {
     };
     const [lobby] = this.context;
     const players = lobby[0].players;
-    if (players == null) return null;
+    if (!players) return null;
     return (
       <div style={playerListStyle}>
         <div className="container row center-align">

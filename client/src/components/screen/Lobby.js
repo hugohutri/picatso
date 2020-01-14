@@ -83,7 +83,7 @@ class Lobby extends Component {
           <div className="center-align flow-text" style={headerStyle}>
             PICATSO
           </div>
-          {mode === "waitings" && (
+          {mode === "waiting" && (
             <LobbyWaiting
               gameid={gameid}
               updateLobbyState={this.updateLobbyState}
@@ -96,7 +96,7 @@ class Lobby extends Component {
             <LobbyRound updateLobbyState={this.updateLobbyState} />
           )}
           {mode === "show" && <Show updateLobbyState={this.updateLobbyState} />}
-          {mode === "waiting" && (
+          {mode === "score" && (
             <LobbyScore updateLobbyState={this.updateLobbyState} />
           )}
         </div>
