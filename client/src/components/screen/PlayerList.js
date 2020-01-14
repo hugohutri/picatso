@@ -23,6 +23,10 @@ class PlayerList extends Component {
 
   async getPlayers(gameid) {
     const { data } = await axios.post("/lobby/players", { info: { gameid } });
+    if (!data || data.error) {
+      window.location.href = "/";
+      return;
+    }
     const [lobby, setLobby] = this.context;
     setLobby([
       {

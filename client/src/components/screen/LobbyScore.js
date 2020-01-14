@@ -20,7 +20,9 @@ class LobbyScore extends Component {
   async getPlayers(gameid) {
     const { data } = await axios.post("/lobby/players", { info: { gameid } });
     let players = data.players;
-    players.sort(function(a, b){return a.points - b.points});
+    players.sort(function(a, b) {
+      return b.points - a.points;
+    });
     this.setState({ players: players });
   }
 

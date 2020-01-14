@@ -47,14 +47,14 @@ class Lobby extends Component {
 
   // Create new lobby
   async createLobby() {
-    //const { data } = await axios.get("/lobby/create");
-    //if (data === null) return;
+    const { data } = await axios.get("/lobby/create");
+    if (data === null) return;
 
     const [lobby, setLobby] = this.context;
 
     setLobby([
       {
-        gameid: "1234", //data.id,
+        gameid: data.id,
         mode: lobby[0].mode,
         players: lobby[0].players,
         questions: [lobby[0].questions]
