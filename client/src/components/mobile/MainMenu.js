@@ -45,7 +45,7 @@ class MainMenu extends Component {
 
     const { data } = await axios.post("/lobby/join", { info: info });
     const lobbyStatus = data.lobbyStatus;
-
+    if (lobbyStatus === -1) console.log("lobby does not exist");
     if (lobbyStatus === 1) {
       // Joining was successful
       const [, setUser] = this.context;
@@ -83,7 +83,7 @@ class MainMenu extends Component {
               >
                 <div className="row">
                   <div className="input-field col s12">
-                    <input id="roomcode" type="text" className="validate" />
+                    <input type="number" className="validate" max="9999" />
                     <label htmlFor="roomcode" className="active">
                       Enter the Room Code
                     </label>
@@ -97,11 +97,7 @@ class MainMenu extends Component {
               >
                 <div className="row">
                   <div className="input-field col s12">
-                    <input
-                      id="usernamefield"
-                      type="text"
-                      className="validate"
-                    />
+                    <input type="text" className="validate" />
                     <label htmlFor="usernamefield" className="active">
                       Choose Your Username
                     </label>
@@ -118,6 +114,13 @@ class MainMenu extends Component {
                 Join Lobby
               </div>
             </div>
+          </div>
+          <div className="row">
+            <a href="/lobby" className="col s12 center">
+              <div className="white-text">
+                <u>Create a new lobby</u>
+              </div>
+            </a>
           </div>
         </div>
       </div>

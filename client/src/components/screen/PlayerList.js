@@ -23,6 +23,10 @@ class PlayerList extends Component {
 
   async getPlayers(gameid) {
     const { data } = await axios.post("/lobby/players", { info: { gameid } });
+    if (!data || data.error) {
+      window.location.href = "/";
+      return;
+    }
     const [lobby, setLobby] = this.context;
     setLobby([
       {
@@ -47,7 +51,7 @@ class PlayerList extends Component {
     };
     const [lobby] = this.context;
     const players = lobby[0].players;
-    if (players == null) return null;
+    if (!players) return null;
     return (
       <div style={playerListStyle}>
         <div className="container row center-align">
@@ -55,7 +59,10 @@ class PlayerList extends Component {
             {players &&
               players.map(player => (
                 <div className="col s4 m3 l3" key={player.name}>
-                  <div className="white-text center" style={playerStyle}>
+                  <div
+                    className="white-text truncate center"
+                    style={playerStyle}
+                  >
                     {player.name}
                   </div>
                 </div>
