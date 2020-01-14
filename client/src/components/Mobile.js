@@ -10,7 +10,6 @@ import Answering from "./mobile/Answering";
 import Voting from "./mobile/Voting";
 import Score from "./mobile/Score";
 import Background from "../images/background1.png";
-import sound from "./bensound-funnysong.mp3";
 import { UserContext } from "./mobile/UserContext";
 
 // Everything rendered in the mobile will be here
@@ -59,14 +58,6 @@ class Mobile extends Component {
                   />
                   <Route path="/score" component={Score} />
                 </Switch>
-                <audio
-                  id="myaudio"
-                  ref="audio_tag"
-                  src={sound}
-                  autoPlay
-                  loop
-                  muted
-                />
               </div>
             </div>
           </Router>

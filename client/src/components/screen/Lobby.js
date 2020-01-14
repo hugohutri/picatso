@@ -10,6 +10,7 @@ import LobbyScore from "./LobbyScore";
 import Show from "./Show";
 
 import axios from "../../js/axios";
+import Music from "./Music";
 
 class Lobby extends Component {
   constructor(props) {
@@ -83,6 +84,7 @@ class Lobby extends Component {
           <div className="center-align flow-text" style={headerStyle}>
             PICATSO
           </div>
+          <Music />
           {mode === "waiting" && (
             <LobbyWaiting
               gameid={gameid}
