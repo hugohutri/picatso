@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Background from "../images/background1.png";
 import Lobby from "./screen/Lobby";
+import Music from "./screen/Music";
 
 // Everyting rendered in the main screen or tv, will be here
 class Screen extends Component {

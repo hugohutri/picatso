@@ -13,6 +13,10 @@ class Music extends React.Component {
     this.audio.volume = 0.0;
   }
 
+  componentDidUpdate() {
+    this.audio.play();
+  }
+
   onClickAudio() {
     console.log("jee");
     if (this.audio.volume === 0.0) {
@@ -44,7 +48,6 @@ class Music extends React.Component {
           ref={el => (this.audio = el)}
           id="myaudio"
           src={sound}
-          autoPlay
           loop
         ></audio>
       </div>
