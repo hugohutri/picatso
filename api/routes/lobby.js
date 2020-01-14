@@ -133,6 +133,17 @@ function lobbySetRound(id, round) {
   return null;
 }
 
+// Delete lobby
+function deleteLobby(id) {
+  for (var i = 0, len = lobbies.length; i < len; i++) {
+    if (lobbies[i].id == id) {
+      // Delete lobby
+      lobbies.splice(i, 1);
+    }
+  }
+  return null;
+}
+
 // Add answer
 function addAnswer(id, username, answer) {
   // Loop lobbies
