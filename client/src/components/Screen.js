@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Background from "../images/background1.png";
-import sound from "./bensound-funnysong.mp3";
 import Lobby from "./screen/Lobby";
 
 // Everyting rendered in the main screen or tv, will be here
@@ -22,7 +21,6 @@ class Screen extends Component {
       <div className="screen">
         <div style={backgroundStyle}>
           <Lobby />
-          <audio ref="audio_tag" src={sound} autoPlay loop muted />
         </div>
       </div>
     );
