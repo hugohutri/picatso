@@ -175,11 +175,11 @@ class Answering extends Component {
                   className="col s12"
                   onChange={this.onChangeAnswer}
                   onSubmit={this.onClickSubmit}
-                  ref={el => this.inputField = el}
+                  ref={el => (this.inputField = el)}
                 >
                   <div className="row">
                     <div className="input-field col s12">
-                      <input id="password" type="text" className="validate" />
+                      <input type="text" className="validate" />
                       <label htmlFor="password" className="active">
                         Come up with a clever answer:
                       </label>

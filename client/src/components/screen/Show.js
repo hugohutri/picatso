@@ -30,6 +30,8 @@ class Show extends Component {
   async timerStopped() {
     let info = null;
     const [lobby] = this.context;
+
+    //---------------MOVE TO RESULTS SCREEN-----------------
     if (this.q_idx >= 3) {
       // Go to next screen
       console.log("Go to next screen");
@@ -42,6 +44,8 @@ class Show extends Component {
       await axios.post("/lobby/setmode", { info: info });
       return;
     }
+
+    //---------------SHOW QUESTION-----------------
     if (this.state.displayVoting) {
       console.log("AIKA Katttoa kyssäri");
       info = {
@@ -61,9 +65,11 @@ class Show extends Component {
       await axios.post("/lobby/setround", { info: info });
       return;
     }
-    this.p_idx += 1;
+
+    //---------------SHOW VOTING-----------------
+
     if (this.p_idx >= this.p_count) {
-      this.p_idx = -1;
+      this.p_idx = 0;
       this.q_idx += 1;
       this.setState({ displayVoting: true });
       console.log("AIKA ÄÄNESTÄÄ");
@@ -78,9 +84,12 @@ class Show extends Component {
       await axios.post("/lobby/setmode", { info: info });
       return;
     }
+
     if (this.q_idx >= this.q_count) {
       return;
     }
+
+    //---------------SHOW NEXT QUESTION-----------------
     const answer = this.state.players[this.p_idx].answers[this.q_idx];
     const question = this.state.questions[this.q_idx];
     this.setState({
@@ -88,6 +97,7 @@ class Show extends Component {
       question: question,
       displayQuestion: false
     });
+    this.p_idx += 1;
   }
 
   async componentDidMount() {
@@ -108,6 +118,27 @@ class Show extends Component {
     this.getAnswers();
   }
 
+  shuffle(arr) {
+    console.log("NYT!");
+    if (!(this.state.displayQuestion || this.state.displayVoting)) return arr;
+    var ctr = arr.length,
+      temp,
+      index;
+    console.log("NYT läpi!");
+    // While there are elements in the array
+    while (ctr > 0) {
+      // Pick a random index
+      index = Math.floor(Math.random() * ctr);
+      // Decrease ctr by 1
+      ctr--;
+      // And swap the last element with it
+      temp = arr[ctr];
+      arr[ctr] = arr[index];
+      arr[index] = temp;
+    }
+    return arr;
+  }
+
   async getAnswers() {
     const [lobby] = this.context;
     /*
@@ -116,6 +147,7 @@ class Show extends Component {
         const { data } = await axios.post( "/lobby/content", { info: info} );
         */
     const players = lobby[0].players;
+    this.shuffle(players);
 
     this.setState({ players: players });
   }
