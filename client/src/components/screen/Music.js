@@ -13,13 +13,12 @@ class Music extends React.Component {
     this.audio.volume = 0.0;
   }
 
+  componentDidUpdate() {
+    this.audio.play();
+  }
+
   onClickAudio() {
-    console.log("jee");
-    if (this.audio.volume === 0.0) {
-      this.audio.volume = 0.2;
-    } else {
-      this.audio.volume = 0.0;
-    }
+    this.audio.volume = this.audio.volume ? 0 : 0.2;
     this.forceUpdate();
   }
 
@@ -34,8 +33,8 @@ class Music extends React.Component {
     return (
       <div>
         <i
-          onClick={this.onClickAudio}
           style={audioStyle}
+          onClick={this.onClickAudio}
           className="material-icons white-text"
         >
           {this.audio && this.audio.volume ? "volume_up" : "volume_off"}
@@ -44,7 +43,6 @@ class Music extends React.Component {
           ref={el => (this.audio = el)}
           id="myaudio"
           src={sound}
-          autoPlay
           loop
         ></audio>
       </div>
