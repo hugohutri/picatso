@@ -57,11 +57,16 @@ class Round extends Component {
     if (this.state.round === 3) {
       this.props.updateLobbyState("show");
       const [lobby] = this.context;
-      const info = {
+      let info = {
         gameid: lobby[0].gameid,
         mode: "show"
       };
       await axios.post("/lobby/setmode", { info: info });
+      info = {
+        gameid: lobby[0].gameid,
+        round: 0
+      };
+      await axios.post("/lobby/setround", { info: info });
       return;
     }
     this.setState({ round: this.state.round + 1 });
@@ -122,7 +127,7 @@ class Round extends Component {
         <div>
           <div>
             <Announcement text="Time to vote for the best answer!" />
-            <Timer seconds="3" timerStopped={this.timerStopped} />
+            <Timer seconds="6" timerStopped={this.timerStopped} />
           </div>
         </div>
       );

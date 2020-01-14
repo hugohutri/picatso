@@ -237,6 +237,22 @@ function addAnswer(id, username, answer) {
 }
 
 // Join to the lobby
+function addPoints(id, choice) {
+  for (var i = 0, len = lobbies.length; i < len; i++) {
+    if (lobbies[i].id === id) {
+      // Loop players
+      const players = lobbies[i].players;
+      for (var k = 0, len2 = players.length; k < len2; k++) {
+        if (players[k].name === choice) {
+          // add points
+          lobbies[i].players[k].points += 100;
+        }
+      }
+    }
+  }
+}
+
+// Join to the lobby
 function joinLobby(id, username) {
   for (var i = 0, len = lobbies.length; i < len; i++) {
     if (lobbies[i].id === id) {
@@ -348,7 +364,7 @@ router.post("/setmode/", (req, res, next) => {
 
   lobbySetMode(gameid, mode);
 
-  res.status(200);
+  res.status(200).json({ mode: mode });
 });
 
 // Request to set round of the lobby
@@ -359,7 +375,7 @@ router.post("/setround/", (req, res, next) => {
 
   lobbySetRound(gameid, round);
 
-  res.status(200);
+  res.status(200).json({ round: round });
 });
 
 // Request to submit an answer for a player
@@ -373,6 +389,17 @@ router.post("/submitanswer/", (req, res, next) => {
   addAnswer(gameid, username, answer);
 
   res.status(200).json({ answer });
+});
+
+// Request to set state of the lobby
+router.post("/vote/", (req, res, next) => {
+  const info = req.body.info;
+  const gameid = info.gameid.toString();
+  const choice = info.choice;
+
+  addPoints(gameid, choice);
+
+  res.status(200).json({ choice: choice });
 });
 
 module.exports = router;

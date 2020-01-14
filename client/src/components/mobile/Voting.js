@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-//import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import "../../styles.css";
 
-import { GameContext } from "../GameContext";
-import { UserContext } from "./UserContext";
 import axios from "../../js/axios";
+import { UserContext } from "./UserContext";
 
 class Voting extends Component {
   constructor(props) {
@@ -24,45 +23,65 @@ class Voting extends Component {
     choice: "",
     wait: true,
     round: 0,
-    current: 0
+    current: 0,
+    mode: "show",
+    isvoted: false,
+    toScorePage: false
   };
 
-  static contextType = GameContext;
+  static contextType = UserContext;
 
   submitVote(player) {
     console.log(player.name);
-    this.sendVote(this.sendVote);
+    this.sendVote(player.name);
+    this.setState({ isvoted: true, wait: true });
   }
 
   componentDidMount() {
-    const gameid = this.props.gameid;
-    //this.getRound();
-    if (gameid !== "") this.getData(gameid);
-  }
-
-  async getRound() {
     const [user] = this.context;
     const gameid = user.gameid;
-    if (gameid === "") return;
+
+    if (gameid) {
+      this.getData(gameid);
+      this.updateMode(gameid);
+    }
+  }
+
+  async updateRound(gameid) {
+    const { data } = await axios.post("/lobby/getround", {
+      info: { gameid }
+    });
+    if (data.round !== this.state.round) {
+      this.setState({ round: data.round });
+    }
+  }
+
+  updateMode(gameid) {
     try {
       this.backendInterval = setInterval(async () => {
-        const { data } = await axios.post("/lobby/getmode", {
-          info: { gameid }
-        });
-        if (data.round !== this.state.round) {
-          this.setState({ round: data.round });
-        }
+        this.updateRound(gameid);
+        this.getMode(gameid);
+        this.updateAnswers();
       }, 1000);
     } catch (e) {
       console.log(e);
     }
   }
 
+  async getMode(gameid) {
+    if (!gameid) return;
+    const { data } = await axios.post("/lobby/getmode", { info: { gameid } });
+
+    this.setState({ mode: data.mode });
+    if (data.mode !== "vote") this.setState({ isvoted: false });
+    if (data.mode === "score") this.setState({ toScorePage: true });
+  }
+
   async getData(gameid) {
-    if (this.state.round !== this.state.current) return;
     const { data } = await axios.post("/lobby/players", { info: { gameid } });
+    this.setState({ players: data.players });
+    /*
     const [lobby, setLobby] = this.context;
-    const players = data.players;
     setLobby([
       {
         gameid: lobby[0].gameid,
@@ -71,10 +90,16 @@ class Voting extends Component {
         questions: lobby[0].questions
       }
     ]);
+    */
+    this.updateAnswers();
+  }
+
+  updateAnswers() {
     let answers = [];
-    for (let i = 0; i < players.length; i++) {
-      const player = players[i];
-      if (player.name === this.props.name) {
+    const [user] = this.context;
+    for (let i = 0; i < this.state.players.length; i++) {
+      const player = this.state.players[i];
+      if (player.name === user.name) {
         continue;
       }
       const answer = {
@@ -84,24 +109,24 @@ class Voting extends Component {
       answers.push(answer);
     }
     this.setState({
-      wait: false,
-      players: players,
       answers: answers
     });
   }
 
   // Send the vote to the server
-  async sendVote() {
+  async sendVote(name) {
+    const [user] = this.context;
+    const gameid = user.gameid;
     const info = {
-      gameid: this.props.gameid,
-      choice: this.state.choice
+      gameid: gameid,
+      choice: name
     };
-
-    //await axios.post("/lobby/vote", { info: info });
-    this.setState({ wait: true, round: this.state.round + 1 });
+    console.log("name " + name + " " + gameid);
+    await axios.post("/lobby/vote", { info: info });
   }
 
   render() {
+    if (this.state.toScorePage) return <Redirect to="/score" />;
     const headerStyle = {
       fontSize: "5vmin",
       fontFamily: "Bangers"
@@ -113,7 +138,7 @@ class Voting extends Component {
     const logoStyle = { fontSize: "10vmin" };
     const answers = this.state.answers;
 
-    if (this.state.round !== this.state.current) {
+    if (this.state.mode === "show") {
       return (
         <div className="login">
           <div className="row">
@@ -123,7 +148,7 @@ class Voting extends Component {
                 desktop_windows
               </i>
               <div className="center-align flow-text" style={headerStyle}>
-                Vote submitted! Waiting for the next one...
+                Waiting for the voting to start
               </div>
               <div className="row">
                 <form className="col s12">
@@ -140,28 +165,56 @@ class Voting extends Component {
         </div>
       );
     }
+    if (this.state.mode === "vote" && !this.state.isvoted) {
+      return (
+        <div className="">
+          <div className="row">
+            <div className="col card s10 offset-s1 m6 offset-m3 center-align">
+              <p />
+              <div className="center-align flow-text" style={headerStyle}>
+                Choose the best answer:
+              </div>
+              {answers &&
+                answers.map((vote, index) => (
+                  <div
+                    className="btn-large s12 col black-text center deep-orange word-break"
+                    style={buttonStyle}
+                    key={index}
+                    voteid={vote.text}
+                    onClick={() => {
+                      this.submitVote(vote.player);
+                    }}
+                  >
+                    {vote.text}
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div className="">
+      <div className="login">
         <div className="row">
           <div className="col card s10 offset-s1 m6 offset-m3 center-align">
             <p />
+            <i className="material-icons black-text" style={logoStyle}>
+              desktop_windows
+            </i>
             <div className="center-align flow-text" style={headerStyle}>
-              Choose the best answer:
+              Vote submitted! Waiting for the next one...
             </div>
-            {answers &&
-              answers.map((vote, index) => (
-                <div
-                  className="btn-large s12 col black-text center deep-orange word-break"
-                  style={buttonStyle}
-                  key={index}
-                  voteid={vote.text}
-                  onClick={() => {
-                    this.submitVote(vote.player);
-                  }}
-                >
-                  {vote.text}
+            <div className="row">
+              <form className="col s12">
+                <div className="row">
+                  <div className="input-field col s12"></div>
                 </div>
-              ))}
+              </form>
+              <form className="col s12">
+                <div className="row"></div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
