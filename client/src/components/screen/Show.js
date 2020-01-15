@@ -54,7 +54,9 @@ class Show extends Component {
         mode: "show"
       };
       await axios.post("/lobby/setmode", { info: info });
-      textToSpeech("the question was:..." + this.state.question);
+      textToSpeech(
+        "the round " + this.q_idx + " was:..." + this.state.question
+      );
       this.setState({
         displayQuestion: true,
         displayVoting: false
