@@ -55,7 +55,7 @@ class Show extends Component {
       };
       await axios.post("/lobby/setmode", { info: info });
       textToSpeech(
-        "the round " + this.q_idx + " was:..." + this.state.question
+        "the round " + this.q_idx + 1 + " was:..." + this.state.question
       );
       this.setState({
         displayQuestion: true,
@@ -112,7 +112,11 @@ class Show extends Component {
     this.state.players = lobby[0].players;
 
     // Set the first question and answer
-    this.state.answer = this.state.players[0].answers[0];
+    if (this.state.players) {
+      this.state.answer = this.state.players[0].answers[0];
+    } else {
+      this.state.answer = " ";
+    }
     this.state.question = this.state.questions[0];
 
     // Set count for players and questions
@@ -120,6 +124,9 @@ class Show extends Component {
     this.q_count = this.state.questions.length;
 
     this.getAnswers();
+    textToSpeech(
+      "the round " + this.q_idx + 1 + " was:..." + this.state.question
+    );
   }
 
   shuffle(arr) {
@@ -229,6 +236,7 @@ class Show extends Component {
 }
 
 function textToSpeech(text) {
+  /*
   // get all voices that browser offers
   var available_voices = window.speechSynthesis.getVoices();
 
@@ -254,6 +262,7 @@ function textToSpeech(text) {
 
   // speak
   window.speechSynthesis.speak(utter);
+  */
 }
 
 export default Show;

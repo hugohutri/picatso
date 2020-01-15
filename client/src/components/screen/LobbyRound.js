@@ -142,6 +142,7 @@ class Round extends Component {
 }
 
 function textToSpeech(text) {
+  /*
   // get all voices that browser offers
   var available_voices = window.speechSynthesis.getVoices();
 
@@ -167,6 +168,7 @@ function textToSpeech(text) {
 
   // speak
   window.speechSynthesis.speak(utter);
+  */
 }
 
 export default Round;

@@ -14,7 +14,7 @@ class Music extends React.Component {
   }
 
   componentDidUpdate() {
-    this.audio.play();
+    if (this.audio) this.audio.play();
   }
 
   onClickAudio() {
@@ -37,7 +37,7 @@ class Music extends React.Component {
           onClick={this.onClickAudio}
           className="material-icons white-text"
         >
-          {this.audio && this.audio.volume ? "volume_up" : "volume_off"}
+          {this.audio && this.audio.volume ? "music_note" : "music_off"}
         </i>
         <audio
           ref={el => (this.audio = el)}
