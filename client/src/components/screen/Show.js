@@ -45,14 +45,16 @@ class Show extends Component {
       return;
     }
 
-    //---------------SHOW QUESTION-----------------
+    //---------------1. SHOW QUESTION-----------------
     if (this.state.displayVoting) {
+      this.p_idx = 0;
       console.log("AIKA Katttoa kyssäri");
       info = {
         gameid: lobby[0].gameid,
         mode: "show"
       };
       await axios.post("/lobby/setmode", { info: info });
+      textToSpeech("the question was:..." + this.state.question);
       this.setState({
         displayQuestion: true,
         displayVoting: false
@@ -66,7 +68,7 @@ class Show extends Component {
       return;
     }
 
-    //---------------SHOW VOTING-----------------
+    //---------------3. SHOW VOTING-----------------
 
     if (this.p_idx >= this.p_count) {
       this.p_idx = 0;
@@ -89,7 +91,7 @@ class Show extends Component {
       return;
     }
 
-    //---------------SHOW NEXT QUESTION-----------------
+    //---------------2. SHOW ANSWERS-----------------
     const answer = this.state.players[this.p_idx].answers[this.q_idx];
     const question = this.state.questions[this.q_idx];
     this.setState({
@@ -222,6 +224,34 @@ class Show extends Component {
       </div>
     );
   }
+}
+
+function textToSpeech(text) {
+  // get all voices that browser offers
+  var available_voices = window.speechSynthesis.getVoices();
+
+  // this will hold an english voice
+  var english_voice = "";
+
+  // find voice by language locale "en-US"
+  // if not then select the first voice
+  for (var i = 0; i < available_voices.length; i++) {
+    if (available_voices[i].lang === "en-US") {
+      english_voice = available_voices[i];
+      break;
+    }
+  }
+  if (english_voice === "") english_voice = available_voices[0];
+
+  // new SpeechSynthesisUtterance object
+  var utter = new SpeechSynthesisUtterance();
+  utter.rate = 0.9;
+  utter.pitch = 0.5;
+  utter.text = text;
+  utter.voice = english_voice;
+
+  // speak
+  window.speechSynthesis.speak(utter);
 }
 
 export default Show;

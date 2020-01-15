@@ -38,6 +38,7 @@ class LobbyTutorial extends Component {
     };
     return (
       <div>
+        <audio src="https://translate.google.com/translate_tts?ie=UTF-8&tl=en-US&client=tw-ob&q=Hi+everyone+its+me"></audio>
         <div>
           <div className="col s6 offset-s3">
             <div
