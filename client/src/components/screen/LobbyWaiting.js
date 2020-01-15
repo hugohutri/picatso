@@ -23,7 +23,7 @@ class LobbyWaiting extends Component {
   render() {
     const idStyle = {
       fontSize: "12vmin",
-      fontFamily: "Bangers",
+      fontFamily: "Mouse Memoirs",
       textShadow: "4px 4px 8px black"
     };
     const guideStyle = {
@@ -49,8 +49,8 @@ class LobbyWaiting extends Component {
               className="center-align white-text flow-text"
               style={guideStyle}
             >
-              Go to "{window.location.hostname}:3000"<br /> on your mobile device to join in <br />{" "}
-              using room code
+              GO TO "{window.location.hostname}:3000"
+              <br /> ON YOUR MOBILE DEVICE TO JOIN IN <br /> USING ROOM CODE
             </div>
             <div className="center-align white-text flow-text" style={idStyle}>
               {gameid || "loading..."}

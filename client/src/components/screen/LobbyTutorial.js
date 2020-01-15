@@ -38,13 +38,14 @@ class LobbyTutorial extends Component {
     };
     return (
       <div>
+        <audio src="https://translate.google.com/translate_tts?ie=UTF-8&tl=en-US&client=tw-ob&q=Hi+everyone+its+me"></audio>
         <div>
           <div className="col s6 offset-s3">
             <div
               className="center-align white-text flow-text"
               style={guideStyle}
             >
-              Game is starting. User your phone to answer the questions!
+              Game is starting. Use your phone to answer the questions!
             </div>
             <div className="center-align">
               <i className="material-icons white-text" style={logoStyle}>

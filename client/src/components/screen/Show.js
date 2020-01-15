@@ -30,6 +30,8 @@ class Show extends Component {
   async timerStopped() {
     let info = null;
     const [lobby] = this.context;
+
+    //---------------MOVE TO RESULTS SCREEN-----------------
     if (this.q_idx >= 3) {
       // Go to next screen
       console.log("Go to next screen");
@@ -42,13 +44,19 @@ class Show extends Component {
       await axios.post("/lobby/setmode", { info: info });
       return;
     }
+
+    //---------------1. SHOW QUESTION-----------------
     if (this.state.displayVoting) {
+      this.p_idx = 0;
       console.log("AIKA Katttoa kyssäri");
       info = {
         gameid: lobby[0].gameid,
         mode: "show"
       };
       await axios.post("/lobby/setmode", { info: info });
+      textToSpeech(
+        "the round " + this.q_idx + " was:..." + this.state.question
+      );
       this.setState({
         displayQuestion: true,
         displayVoting: false
@@ -61,9 +69,11 @@ class Show extends Component {
       await axios.post("/lobby/setround", { info: info });
       return;
     }
-    this.p_idx += 1;
+
+    //---------------3. SHOW VOTING-----------------
+
     if (this.p_idx >= this.p_count) {
-      this.p_idx = -1;
+      this.p_idx = 0;
       this.q_idx += 1;
       this.setState({ displayVoting: true });
       console.log("AIKA ÄÄNESTÄÄ");
@@ -78,9 +88,12 @@ class Show extends Component {
       await axios.post("/lobby/setmode", { info: info });
       return;
     }
+
     if (this.q_idx >= this.q_count) {
       return;
     }
+
+    //---------------2. SHOW ANSWERS-----------------
     const answer = this.state.players[this.p_idx].answers[this.q_idx];
     const question = this.state.questions[this.q_idx];
     this.setState({
@@ -88,6 +101,7 @@ class Show extends Component {
       question: question,
       displayQuestion: false
     });
+    this.p_idx += 1;
   }
 
   async componentDidMount() {
@@ -108,6 +122,27 @@ class Show extends Component {
     this.getAnswers();
   }
 
+  shuffle(arr) {
+    console.log("NYT!");
+    if (!(this.state.displayQuestion || this.state.displayVoting)) return arr;
+    var ctr = arr.length,
+      temp,
+      index;
+    console.log("NYT läpi!");
+    // While there are elements in the array
+    while (ctr > 0) {
+      // Pick a random index
+      index = Math.floor(Math.random() * ctr);
+      // Decrease ctr by 1
+      ctr--;
+      // And swap the last element with it
+      temp = arr[ctr];
+      arr[ctr] = arr[index];
+      arr[index] = temp;
+    }
+    return arr;
+  }
+
   async getAnswers() {
     const [lobby] = this.context;
     /*
@@ -116,6 +151,7 @@ class Show extends Component {
         const { data } = await axios.post( "/lobby/content", { info: info} );
         */
     const players = lobby[0].players;
+    this.shuffle(players);
 
     this.setState({ players: players });
   }
@@ -190,6 +226,34 @@ class Show extends Component {
       </div>
     );
   }
+}
+
+function textToSpeech(text) {
+  // get all voices that browser offers
+  var available_voices = window.speechSynthesis.getVoices();
+
+  // this will hold an english voice
+  var english_voice = "";
+
+  // find voice by language locale "en-US"
+  // if not then select the first voice
+  for (var i = 0; i < available_voices.length; i++) {
+    if (available_voices[i].lang === "en-US") {
+      english_voice = available_voices[i];
+      break;
+    }
+  }
+  if (english_voice === "") english_voice = available_voices[0];
+
+  // new SpeechSynthesisUtterance object
+  var utter = new SpeechSynthesisUtterance();
+  utter.rate = 0.9;
+  utter.pitch = 0.5;
+  utter.text = text;
+  utter.voice = english_voice;
+
+  // speak
+  window.speechSynthesis.speak(utter);
 }
 
 export default Show;

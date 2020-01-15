@@ -70,9 +70,9 @@ class Timer extends Component {
 
   render() {
     const timerStyle = {
-      fontSize: "8vmin",
-      fontFamily: "Bangers",
-      textShadow: "4px 4px 8px black",
+      fontSize: "15vmin",
+      fontFamily: "Mouse Memoirs",
+      textShadow: "2px 2px 4px black",
       position: "fixed",
       top: "0",
       left: "10px"
