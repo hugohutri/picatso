@@ -91,7 +91,7 @@ const content = [
   },
   {
     guide: "Answer something funny",
-    question: "Best pickup line at a Minecraft convention.",
+    question: "Best pickup line at a Minecraft convention?",
     url: "",
     //I heard they added Love in the last patch and only thing missing from my recipe is you; If you were creeper I wouldn't turn around if you snuck up behind me.
     timer: normal
@@ -122,21 +122,14 @@ const content = [
   {
     guide: "Answer something funny",
     question:
-      "Worst thing for the doctor to say, right as the patient is going under anesthesia.",
+      "Worst thing for the doctor to say, right as the patient is going under anesthesia?",
     url: "",
     //was it the right or the left leg?, I'm gonna need a tasoittava to make it, just dump him with the rest, "Hello, I'm mr. Bean"
     timer: normal
   },
   {
-    guide: "Answer something funny",
-    question: "Bill Gates' username on Fortnite.",
-    url: "",
-    //PS_CanSuckMy, killMe=GetBanned99, myDadWorksAtEpic42,
-    timer: normal
-  },
-  {
     guide: "Fill in the plank",
-    question: "What's something little known about the world of Harry Potter",
+    question: "What's something little known about the world of Harry Potter?",
     url: "",
     //they sniff glue just like the rest of us, in book 8 hagrid killed all the younglings,
     timer: normal
@@ -145,6 +138,13 @@ const content = [
     guide: "Fill in the plank",
     question:
       "What did I tell you, dear Watson? All it takes to solve a mystery is deductive reasoning and _______.",
+    url: "",
+    //just a little bit of cocaine, for you to shut up,
+    timer: normal
+  },
+  {
+    guide: "Fill in the plank",
+    question: "We should have stopped _______ when we still had the chance.",
     url: "",
     //just a little bit of cocaine, for you to shut up,
     timer: normal
